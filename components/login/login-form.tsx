@@ -121,13 +121,23 @@ export function LoginForm() {
             </Link>
           </div>
 
+          {vm.errorMessage ? (
+            <p
+              role="alert"
+              className="rounded-md bg-red-50 px-4 py-2 text-sm text-red-700"
+            >
+              {vm.errorMessage}
+            </p>
+          ) : null}
+
           <Button
             type="submit"
             variant="brand"
-            className="h-12 w-full rounded-full text-base"
+            disabled={vm.isSubmitting}
+            className="h-12 w-full rounded-full text-base disabled:opacity-60"
           >
-            {vm.submitLabel}
-            <ArrowRight />
+            {vm.isSubmitting ? "Sending OTP…" : vm.submitLabel}
+            {vm.isSubmitting ? null : <ArrowRight />}
           </Button>
         </form>
 

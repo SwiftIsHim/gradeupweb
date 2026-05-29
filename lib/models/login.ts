@@ -29,6 +29,7 @@ export interface LoginFormContent {
     label: string
     countryFlag: string
     countryCode: string
+    countryIso: string
     placeholder: string
   }
   email: {
@@ -69,6 +70,7 @@ export const loginContent: LoginContent = {
       label: "Phone number",
       countryFlag: "🇳🇬",
       countryCode: "+234",
+      countryIso: "NG",
       placeholder: "803 145 9821",
     },
     email: {
