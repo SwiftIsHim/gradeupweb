@@ -1,13 +1,8 @@
 import { ClientError } from "graphql-request"
 
 import { setVerificationCookie } from "@/lib/auth/cookies"
-import { anonClient } from "@/lib/graphql/client"
-import {
-  LOGIN_MUTATION,
-  type AuthType,
-  type LoginInput,
-  type LoginResponse,
-} from "@/lib/graphql/auth"
+import { requestLogin } from "@/src/login/repository/authRepository"
+import { type AuthType, type LoginInput } from "@/src/login/repository/auth"
 
 interface LoginBody {
   method: "phone" | "email"
@@ -47,15 +42,13 @@ export async function POST(request: Request) {
   }
 
   try {
-    const data = await anonClient.request<LoginResponse>(LOGIN_MUTATION, {
-      input,
-    })
+    const login = await requestLogin(input)
 
-    await setVerificationCookie(data.login.verificationToken)
+    await setVerificationCookie(login.verificationToken)
 
     return Response.json({
-      requiresVerification: data.login.requiresVerification,
-      message: data.login.message,
+      requiresVerification: login.requiresVerification,
+      message: login.message,
     })
   } catch (error) {
     if (error instanceof ClientError) {

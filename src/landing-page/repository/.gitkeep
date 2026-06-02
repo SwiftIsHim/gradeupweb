@@ -1,0 +1,3 @@
+# The landing page renders static content (see ../model), so it has no data
+# source yet. This folder is the home for any future GraphQL/REST repository
+# the landing page needs — keeping its MVVM structure consistent with login.

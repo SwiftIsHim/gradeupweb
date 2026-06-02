@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 
-import { LoginPanel } from "@/components/login/login-panel";
-import { VerifyForm } from "@/components/login/verify-form";
+import { LoginPanel } from "@/src/login/view/login-panel";
+import { VerifyForm } from "@/src/login/view/verify-form";
 import { readVerificationCookie } from "@/lib/auth/cookies";
 
 export const metadata: Metadata = {

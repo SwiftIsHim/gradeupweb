@@ -5,11 +5,7 @@ import {
   readVerificationCookie,
   setSessionCookies,
 } from "@/lib/auth/cookies"
-import { anonClient } from "@/lib/graphql/client"
-import {
-  VERIFY_OTP_MUTATION,
-  type VerifyOtpResponse,
-} from "@/lib/graphql/auth"
+import { requestVerifyOtp } from "@/src/login/repository/authRepository"
 
 interface VerifyOtpBody {
   otp: string
@@ -40,15 +36,9 @@ export async function POST(request: Request) {
   }
 
   try {
-    const data = await anonClient.request<VerifyOtpResponse>(
-      VERIFY_OTP_MUTATION,
-      { input: { verificationToken, otp } },
-    )
+    const session = await requestVerifyOtp({ verificationToken, otp })
 
-    await setSessionCookies(
-      data.verifyOtp.accessToken,
-      data.verifyOtp.refreshToken,
-    )
+    await setSessionCookies(session.accessToken, session.refreshToken)
     await clearVerificationCookie()
 
     return Response.json({ ok: true })

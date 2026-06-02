@@ -1,12 +1,12 @@
-import { Footer } from "@/components/layout/footer";
-import { Navbar } from "@/components/layout/navbar";
-import { CtaBanner } from "@/components/sections/cta-banner";
-import { Features } from "@/components/sections/features";
-import { Hero } from "@/components/sections/hero";
-import { HowItWorks } from "@/components/sections/how-it-works";
-import { LogoStrip } from "@/components/sections/logo-strip";
-import { StatsStrip } from "@/components/sections/stats-strip";
-import { Testimonials } from "@/components/sections/testimonials";
+import { Footer } from "@/src/landing-page/view/footer";
+import { Navbar } from "@/src/landing-page/view/navbar";
+import { CtaBanner } from "@/src/landing-page/view/cta-banner";
+import { Features } from "@/src/landing-page/view/features";
+import { Hero } from "@/src/landing-page/view/hero";
+import { HowItWorks } from "@/src/landing-page/view/how-it-works";
+import { LogoStrip } from "@/src/landing-page/view/logo-strip";
+import { StatsStrip } from "@/src/landing-page/view/stats-strip";
+import { Testimonials } from "@/src/landing-page/view/testimonials";
 
 export default function Home() {
   return (

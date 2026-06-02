@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
-import { LoginForm } from "@/components/login/login-form";
-import { LoginPanel } from "@/components/login/login-panel";
+import { LoginForm } from "@/src/login/view/login-form";
+import { LoginPanel } from "@/src/login/view/login-panel";
 
 export const metadata: Metadata = {
   title: "Log in — Grade Up",
