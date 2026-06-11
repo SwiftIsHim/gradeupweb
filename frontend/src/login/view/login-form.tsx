@@ -96,6 +96,19 @@ export function LoginForm() {
             </div>
           ) : null}
 
+          {/* Confirm password — signup only. */}
+          {onSignupStep ? (
+            <TextField
+              id="signup-confirm-password"
+              type="password"
+              autoComplete="new-password"
+              label={vm.confirmPassword.label}
+              placeholder={vm.confirmPassword.placeholder}
+              value={vm.confirmPasswordValue}
+              onChange={vm.setConfirmPasswordValue}
+            />
+          ) : null}
+
           {vm.errorMessage ? (
             <p
               role="alert"

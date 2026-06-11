@@ -27,6 +27,7 @@ export interface LoginFormContent {
 
   email: FieldContent
   password: FieldContent
+  confirmPassword: FieldContent
   name: FieldContent
   phone: PhoneFieldContent
 
@@ -77,6 +78,10 @@ export const loginContent: LoginContent = {
     password: {
       label: "Password",
       placeholder: "Enter your password",
+    },
+    confirmPassword: {
+      label: "Confirm password",
+      placeholder: "Re-enter your password",
     },
     name: {
       label: "Full name",

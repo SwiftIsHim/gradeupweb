@@ -26,6 +26,7 @@ export function useLoginFormViewModel() {
   const [step, setStep] = useState<LoginStep>("email")
   const [emailValue, setEmailValue] = useState("")
   const [passwordValue, setPasswordValue] = useState("")
+  const [confirmPasswordValue, setConfirmPasswordValue] = useState("")
   const [nameValue, setNameValue] = useState("")
   const [phoneValue, setPhoneValue] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -35,6 +36,7 @@ export function useLoginFormViewModel() {
   const changeEmail = useCallback(() => {
     setStep("email")
     setPasswordValue("")
+    setConfirmPasswordValue("")
     setNameValue("")
     setPhoneValue("")
     setErrorMessage(null)
@@ -77,7 +79,11 @@ export function useLoginFormViewModel() {
             password: passwordValue,
           })
         } else {
-          // New user — create the account (no OTP).
+          // New user — passwords must match before we create the account.
+          if (passwordValue !== confirmPasswordValue) {
+            setErrorMessage("Passwords don't match. Please re-enter them.")
+            return
+          }
           await postJson("/api/auth/signup", {
             email: emailValue.trim(),
             phone: toE164(phoneValue),
@@ -98,7 +104,16 @@ export function useLoginFormViewModel() {
         setIsSubmitting(false)
       }
     },
-    [step, emailValue, passwordValue, nameValue, phoneValue, isSubmitting, router],
+    [
+      step,
+      emailValue,
+      passwordValue,
+      confirmPasswordValue,
+      nameValue,
+      phoneValue,
+      isSubmitting,
+      router,
+    ],
   )
 
   const heading = useMemo(() => {
@@ -122,6 +137,8 @@ export function useLoginFormViewModel() {
     setEmailValue,
     passwordValue,
     setPasswordValue,
+    confirmPasswordValue,
+    setConfirmPasswordValue,
     nameValue,
     setNameValue,
     phoneValue,

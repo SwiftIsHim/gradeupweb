@@ -377,7 +377,7 @@ function Completion({ vm }: { vm: VM }) {
   ]
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#1c2620] text-white">
+    <div className="flex min-h-screen flex-col bg-neutral-50 text-foreground">
       <div className="flex items-center gap-2 px-6 py-6 sm:px-10">
         <span className="flex size-8 items-center justify-center rounded-md bg-green-500 text-base font-bold text-white">
           {brandInitial}
@@ -395,20 +395,20 @@ function Completion({ vm }: { vm: VM }) {
         <h1 className="mt-8 text-3xl font-bold tracking-tight">
           You're all set, {vm.data.firstName}!
         </h1>
-        <p className="mt-3 max-w-lg text-sm text-neutral-400">
+        <p className="mt-3 max-w-lg text-sm text-muted-foreground">
           Your {vm.daysToExam ?? "personalized"}-day study plan is ready. We'll
           start with {vm.firstSubjectTitle} tomorrow at {vm.startTime}.
         </p>
 
-        <div className="mt-8 w-full max-w-xl overflow-hidden rounded-2xl bg-[#16201b]">
-          <div className="divide-y divide-white/10">
+        <div className="mt-8 w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-sm">
+          <div className="divide-y divide-border">
             {rows.map((row) => (
               <div
                 key={row.label}
                 className="flex items-center justify-between px-6 py-4"
               >
-                <span className="text-sm text-neutral-400">{row.label}</span>
-                <span className="text-sm font-semibold text-white">
+                <span className="text-sm text-muted-foreground">{row.label}</span>
+                <span className="text-sm font-semibold text-foreground">
                   {row.value}
                 </span>
               </div>
@@ -421,7 +421,7 @@ function Completion({ vm }: { vm: VM }) {
             type="button"
             onClick={vm.adjustSetup}
             className={cn(
-              "inline-flex h-12 items-center justify-center rounded-full border border-green-500/40 bg-transparent text-base font-medium text-green-400 transition hover:bg-green-500/10",
+              "inline-flex h-12 items-center justify-center rounded-full border border-green-500 bg-transparent text-base font-medium text-green-600 transition hover:bg-green-50",
             )}
           >
             {completionContent.adjustLabel}
