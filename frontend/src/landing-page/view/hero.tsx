@@ -97,7 +97,7 @@ function DashboardPreview({ dashboard }: { dashboard: HeroDashboard }) {
 
   return (
     <div className="relative">
-      <div className="absolute -top-5 right-2 z-10 flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3 shadow-lg sm:right-6">
+      <div className="absolute -top-5 right-2 z-10 flex items-center gap-3 rounded-xl border border-border bg-white px-4 py-3 shadow-lg sm:right-6 dark:bg-neutral-900">
         <span className="flex size-9 items-center justify-center rounded-full bg-amber-100">
           <Trophy className="size-4 text-amber-500" />
         </span>
@@ -110,7 +110,7 @@ function DashboardPreview({ dashboard }: { dashboard: HeroDashboard }) {
       </div>
 
       <div className="rounded-3xl bg-neutral-900 p-4 shadow-2xl sm:p-6">
-        <div className="rounded-2xl bg-white p-5">
+        <div className="rounded-2xl bg-white p-5 dark:bg-neutral-800">
           <div className="flex items-center justify-between">
             <p className="text-lg font-semibold">{greeting} 👋</p>
             <span className="flex items-center gap-1 rounded-full bg-orange-50 px-2.5 py-1 text-xs font-semibold text-orange-600">
@@ -121,7 +121,7 @@ function DashboardPreview({ dashboard }: { dashboard: HeroDashboard }) {
 
           <div className="mt-4 grid grid-cols-3 gap-3">
             {stats.map((stat) => (
-              <div key={stat.label} className="rounded-xl bg-neutral-50 p-3">
+              <div key={stat.label} className="rounded-xl bg-neutral-50 p-3 dark:bg-neutral-900">
                 <p className="text-[11px] font-medium uppercase tracking-wide text-muted-foreground">
                   {stat.label}
                 </p>

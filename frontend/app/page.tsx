@@ -10,7 +10,7 @@ import { Testimonials } from "@/src/landing-page/view/testimonials";
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col bg-[#f5f7f3]">
+    <div className="flex flex-1 flex-col bg-[#f5f7f3] dark:bg-neutral-950">
       <Navbar />
       <main className="flex-1">
         <Hero />

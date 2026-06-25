@@ -7,7 +7,7 @@ export function CtaBanner() {
   const vm = getCtaViewModel()
 
   return (
-    <section className="bg-white">
+    <section className="bg-white dark:bg-neutral-900">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 py-20 text-center sm:px-6">
         <h2 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
           {vm.title}

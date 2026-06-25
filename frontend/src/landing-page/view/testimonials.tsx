@@ -16,7 +16,7 @@ export function Testimonials() {
   const vm = getTestimonialsViewModel()
 
   return (
-    <section id="testimonials" className="bg-white">
+    <section id="testimonials" className="bg-white dark:bg-neutral-950">
       <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6">
         <div className="flex flex-col items-center gap-3 text-center">
           <h2 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
@@ -29,7 +29,7 @@ export function Testimonials() {
           {vm.items.map((item) => (
             <figure
               key={item.id}
-              className="flex flex-col justify-between gap-8 rounded-2xl border border-border bg-white p-7"
+              className="flex flex-col justify-between gap-8 rounded-2xl border border-border bg-white p-7 dark:bg-neutral-900"
             >
               <div>
                 <div className="flex gap-0.5" aria-label={`${item.stars} out of 5 stars`}>
@@ -40,7 +40,7 @@ export function Testimonials() {
                     />
                   ))}
                 </div>
-                <blockquote className="mt-4 text-sm leading-relaxed text-neutral-700">
+                <blockquote className="mt-4 text-sm leading-relaxed text-neutral-700 dark:text-neutral-300">
                   &ldquo;{item.quote}&rdquo;
                 </blockquote>
               </div>

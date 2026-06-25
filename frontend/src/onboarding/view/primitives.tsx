@@ -29,7 +29,7 @@ export function ProgressHeader({
             <button
               type="button"
               onClick={onBack}
-              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-foreground transition hover:bg-neutral-50"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-white px-4 py-2 text-sm font-medium text-foreground transition hover:bg-neutral-50 dark:bg-neutral-900 dark:hover:bg-neutral-800"
             >
               <ArrowLeft className="size-4" />
               Back
@@ -51,7 +51,7 @@ export function ProgressHeader({
         </div>
       </div>
 
-      <div className="h-1.5 w-full bg-neutral-200">
+      <div className="h-1.5 w-full bg-neutral-200 dark:bg-neutral-800">
         <div
           className="h-full rounded-r-full bg-green-500 transition-all duration-300"
           style={{ width: `${progress}%` }}
@@ -70,7 +70,7 @@ interface StepCardProps {
 /** The centered white card that holds a step's heading + content. */
 export function StepCard({ title, subtitle, children }: StepCardProps) {
   return (
-    <div className="mx-auto w-full max-w-xl rounded-3xl bg-white p-8 shadow-sm sm:p-10">
+    <div className="mx-auto w-full max-w-xl rounded-3xl bg-white p-8 shadow-sm sm:p-10 dark:bg-neutral-900">
       <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{title}</h2>
       {subtitle ? (
         <p className="mt-2 text-sm text-muted-foreground">{subtitle}</p>
@@ -97,14 +97,14 @@ export function RadioRow({ title, description, selected, onSelect }: RadioRowPro
       className={cn(
         "flex w-full items-center gap-4 rounded-xl border-2 px-5 py-4 text-left transition",
         selected
-          ? "border-green-500 bg-green-50"
-          : "border-transparent bg-neutral-50 hover:bg-neutral-100",
+          ? "border-green-500 bg-green-50 dark:bg-green-500/10"
+          : "border-transparent bg-neutral-50 hover:bg-neutral-100 dark:bg-neutral-800 dark:hover:bg-neutral-700",
       )}
     >
       <span
         className={cn(
           "flex size-5 shrink-0 items-center justify-center rounded-full border-2 transition",
-          selected ? "border-green-500" : "border-neutral-300",
+          selected ? "border-green-500" : "border-neutral-300 dark:border-neutral-600",
         )}
       >
         {selected ? <span className="size-2.5 rounded-full bg-green-500" /> : null}
@@ -143,8 +143,8 @@ export function OptionCard({
       className={cn(
         "relative rounded-xl border-2 p-4 text-left transition",
         selected
-          ? "border-green-500 bg-green-50"
-          : "border-border bg-white hover:border-neutral-300",
+          ? "border-green-500 bg-green-50 dark:bg-green-500/10"
+          : "border-border bg-white hover:border-neutral-300 dark:bg-neutral-900 dark:hover:border-neutral-600",
       )}
     >
       {showCheck && selected ? (
@@ -194,7 +194,7 @@ export function TextField({
         placeholder={placeholder}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="mt-2 block w-full rounded-full border-2 border-green-500 bg-white px-5 py-3 text-sm outline-none placeholder:text-neutral-500 focus:ring-2 focus:ring-green-200"
+        className="mt-2 block w-full rounded-full border-2 border-green-500 bg-white px-5 py-3 text-sm outline-none placeholder:text-neutral-500 focus:ring-2 focus:ring-green-200 dark:bg-neutral-900"
       />
       {helper ? (
         <p className="mt-2 text-xs text-muted-foreground">{helper}</p>

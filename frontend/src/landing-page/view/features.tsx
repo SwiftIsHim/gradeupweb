@@ -38,7 +38,7 @@ export function Features() {
           return (
             <article
               key={feature.id}
-              className="rounded-2xl border border-border bg-white p-7 transition-shadow hover:shadow-md"
+              className="rounded-2xl border border-border bg-white p-7 transition-shadow hover:shadow-md dark:bg-neutral-900"
             >
               <div
                 className={cn(

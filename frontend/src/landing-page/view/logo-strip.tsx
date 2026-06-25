@@ -4,7 +4,7 @@ export function LogoStrip() {
   const { caption, names } = getOrganizationsViewModel()
 
   return (
-    <section className="border-y border-border/60 bg-white">
+    <section className="border-y border-border/60 bg-white dark:bg-neutral-900">
       <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <p className="text-center text-xs font-semibold uppercase tracking-widest text-muted-foreground">
           {caption}

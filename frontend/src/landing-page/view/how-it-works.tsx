@@ -17,7 +17,7 @@ export function HowItWorks() {
         {vm.steps.map((step) => (
           <li
             key={step.id}
-            className="rounded-2xl border border-border bg-white p-7"
+            className="rounded-2xl border border-border bg-white p-7 dark:bg-neutral-900"
           >
             <div className="flex size-10 items-center justify-center rounded-full bg-green-500 text-base font-bold text-white">
               {step.number}

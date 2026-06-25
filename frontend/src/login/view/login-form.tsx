@@ -12,7 +12,7 @@ export function LoginForm() {
   const onSignupStep = vm.step === "signup"
 
   return (
-    <div className="flex flex-col justify-center bg-white px-6 py-12 sm:px-12">
+    <div className="flex flex-col justify-center bg-white px-6 py-12 sm:px-12 dark:bg-neutral-950">
       <div className="mx-auto w-full max-w-md">
         <h2 className="text-3xl font-bold tracking-tight">{vm.heading.title}</h2>
         <p className="mt-2 text-sm text-muted-foreground">{vm.heading.subtitle}</p>
@@ -33,7 +33,7 @@ export function LoginForm() {
           ) : (
             <div>
               <span className="block text-sm font-semibold">{vm.email.label}</span>
-              <div className="mt-2 flex items-center justify-between rounded-full border border-border bg-neutral-50 px-5 py-3">
+              <div className="mt-2 flex items-center justify-between rounded-full border border-border bg-neutral-50 px-5 py-3 dark:bg-neutral-800">
                 <span className="text-sm text-foreground">{vm.emailValue}</span>
                 <button
                   type="button"
@@ -178,7 +178,7 @@ function TextField({
         placeholder={placeholder}
         value={value}
         onChange={(event) => onChange(event.target.value)}
-        className="mt-2 block w-full rounded-full border-2 border-green-500 bg-white px-5 py-3 text-sm outline-none placeholder:text-neutral-500 focus:ring-2 focus:ring-green-200"
+        className="mt-2 block w-full rounded-full border-2 border-green-500 bg-white px-5 py-3 text-sm outline-none placeholder:text-neutral-500 focus:ring-2 focus:ring-green-200 dark:bg-neutral-900"
       />
     </div>
   )
@@ -206,7 +206,7 @@ function PhoneField({
       <label htmlFor="signup-phone" className="block text-sm font-semibold">
         {label}
       </label>
-      <div className="mt-2 flex items-center rounded-full border-2 border-green-500 bg-white focus-within:ring-2 focus-within:ring-green-200">
+      <div className="mt-2 flex items-center rounded-full border-2 border-green-500 bg-white focus-within:ring-2 focus-within:ring-green-200 dark:bg-neutral-900">
         <div className="flex items-center gap-1.5 border-r border-border py-3 pl-5 pr-3">
           <span className="text-base leading-none" aria-hidden>
             {flag}

@@ -40,7 +40,7 @@ export function OnboardingFlow() {
   const step = renderStep(vm)
 
   return (
-    <div className="flex min-h-screen flex-col bg-neutral-50">
+    <div className="flex min-h-screen flex-col bg-neutral-50 dark:bg-neutral-950">
       <ProgressHeader
         stepNumber={vm.stepNumber}
         totalSteps={vm.totalSteps}
@@ -360,7 +360,7 @@ function SelectBox({ label, value, onChange, options }: SelectBoxProps) {
     typeof o === "string" ? { value: o, label: o } : o,
   )
   return (
-    <label className="flex flex-col rounded-xl border-2 border-green-500 bg-white px-4 py-2.5 text-center">
+    <label className="flex flex-col rounded-xl border-2 border-green-500 bg-white px-4 py-2.5 text-center dark:bg-neutral-900">
       <span className="text-[11px] text-muted-foreground">{label}</span>
       <select
         value={value}
@@ -391,7 +391,7 @@ function Completion({ vm }: { vm: VM }) {
   ]
 
   return (
-    <div className="flex min-h-screen flex-col bg-neutral-50 text-foreground">
+    <div className="flex min-h-screen flex-col bg-neutral-50 text-foreground dark:bg-neutral-950">
       <div className="flex items-center gap-2 px-6 py-6 sm:px-10">
         <span className="flex size-8 items-center justify-center rounded-md bg-green-500 text-base font-bold text-white">
           {brandInitial}
@@ -414,7 +414,7 @@ function Completion({ vm }: { vm: VM }) {
           start with {vm.firstSubjectTitle} tomorrow at {vm.startTime}.
         </p>
 
-        <div className="mt-8 w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-sm">
+        <div className="mt-8 w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-sm dark:bg-neutral-900">
           <div className="divide-y divide-border">
             {rows.map((row) => (
               <div

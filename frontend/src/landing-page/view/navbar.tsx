@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Menu, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { ThemeToggle } from "@/src/theme/theme-toggle"
 import { useNavbarViewModel } from "@/src/landing-page/viewmodel/useNavbarViewModel"
 
 export function Navbar() {
@@ -11,7 +12,7 @@ export function Navbar() {
     useNavbarViewModel()
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-white/90 backdrop-blur">
+    <header className="sticky top-0 z-50 w-full border-b border-border/60 bg-white/90 backdrop-blur dark:bg-neutral-900/90">
       <nav className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         <Link
           href="/"
@@ -39,7 +40,8 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-1 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
           <Button asChild variant="ghost" className="h-10 px-4">
             <Link href={logIn.href}>{logIn.label}</Link>
           </Button>
@@ -48,20 +50,22 @@ export function Navbar() {
           </Button>
         </div>
 
-        <Button
-          variant="ghost"
-          size="icon"
-          className="md:hidden"
-          aria-label="Toggle menu"
-          aria-expanded={isMenuOpen}
-          onClick={toggleMenu}
-        >
-          {isMenuOpen ? <X /> : <Menu />}
-        </Button>
+        <div className="flex items-center gap-1 md:hidden">
+          <ThemeToggle />
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Toggle menu"
+            aria-expanded={isMenuOpen}
+            onClick={toggleMenu}
+          >
+            {isMenuOpen ? <X /> : <Menu />}
+          </Button>
+        </div>
       </nav>
 
       {isMenuOpen && (
-        <div className="border-t border-border/60 bg-white md:hidden">
+        <div className="border-t border-border/60 bg-white md:hidden dark:bg-neutral-900">
           <ul className="flex flex-col gap-1 px-4 py-3">
             {navLinks.map((link) => (
               <li key={link.href}>
