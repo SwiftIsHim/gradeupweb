@@ -1,0 +1,247 @@
+{
+  "id": "BK001",
+  "title": "The Journey of Code",
+  "subtitle": "From Beginner to Professional Developer",
+  "description": "A comprehensive guide that takes readers through the fundamentals of programming, web development, databases, software architecture, deployment, and career growth.",
+  "author": {
+    "id": "AUTH001",
+    "firstName": "Emmanuel",
+    "lastName": "Swift",
+    "email": "emmanuel.swift@example.com",
+    "nationality": "Nigerian",
+    "biography": "Emmanuel Swift is a software developer and technical writer specializing in full-stack web development, software architecture, and developer education."
+  },
+  "publisher": {
+    "name": "TechPress Publishing",
+    "address": "12 Innovation Drive, Lagos, Nigeria",
+    "website": "https://www.techpress.com"
+  },
+  "isbn": "978-1-23456-789-0",
+  "edition": 2,
+  "publicationYear": 2025,
+  "language": "English",
+  "genre": ["Technology", "Programming", "Software Development"],
+  "tags": [
+    "Programming",
+    "JavaScript",
+    "React",
+    "Node.js",
+    "MongoDB",
+    "Web Development",
+    "Backend",
+    "Frontend"
+  ],
+  "pages": 320,
+  "format": ["Paperback", "Hardcover", "eBook"],
+  "price": {
+    "currency": "USD",
+    "amount": 19.99
+  },
+  "rating": {
+    "average": 4.8,
+    "totalReviews": 1245
+  },
+  "availability": {
+    "inStock": true,
+    "totalCopies": 500,
+    "availableCopies": 382
+  },
+  "tableOfContents": [
+    "Introduction to Programming",
+    "Setting Up Your Development Environment",
+    "Variables and Data Types",
+    "Control Flow",
+    "Functions",
+    "Object-Oriented Programming",
+    "Frontend Development with React",
+    "Backend Development with Node.js",
+    "Working with Databases",
+    "Authentication and Security",
+    "Software Architecture",
+    "Deployment",
+    "Career Growth"
+  ],
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "title": "Introduction to Programming",
+      "pages": 25,
+      "content": [
+        "Programming is the process of creating instructions that computers can execute.",
+        "Every application, website, and digital service is built using programming languages.",
+        "Programming enables developers to automate tasks, solve problems, and create innovative products.",
+        "Modern software powers industries such as healthcare, finance, education, and entertainment.",
+        "A strong foundation in programming opens the door to numerous career opportunities."
+      ]
+    },
+    {
+      "chapterNumber": 2,
+      "title": "Setting Up Your Development Environment",
+      "pages": 20,
+      "content": [
+        "A development environment consists of tools used for writing, testing, and deploying software.",
+        "Visual Studio Code is a popular code editor due to its flexibility and extensions.",
+        "Git helps developers track changes and collaborate efficiently.",
+        "Node.js provides a runtime environment for executing JavaScript outside the browser.",
+        "A properly configured environment improves productivity and development speed."
+      ]
+    },
+    {
+      "chapterNumber": 3,
+      "title": "Variables and Data Types",
+      "pages": 30,
+      "content": [
+        "Variables store information that can be used throughout a program.",
+        "Common data types include strings, numbers, booleans, arrays, and objects.",
+        "Choosing the right data type improves efficiency and readability.",
+        "Type conversion allows data to be transformed from one format to another.",
+        "Understanding data structures is fundamental to software development."
+      ]
+    },
+    {
+      "chapterNumber": 4,
+      "title": "Control Flow",
+      "pages": 22,
+      "content": [
+        "Control flow determines the order in which statements execute.",
+        "Conditional logic enables programs to make decisions.",
+        "Loops are used to repeat operations efficiently.",
+        "Nested conditions can be used to handle complex scenarios.",
+        "Control flow is essential for building interactive applications."
+      ]
+    },
+    {
+      "chapterNumber": 5,
+      "title": "Functions",
+      "pages": 25,
+      "content": [
+        "Functions are reusable blocks of code designed to perform specific tasks.",
+        "Parameters allow functions to receive input values.",
+        "Return statements send data back to the caller.",
+        "Functions reduce code duplication and improve maintainability.",
+        "Modern JavaScript supports arrow functions for concise syntax."
+      ]
+    },
+    {
+      "chapterNumber": 6,
+      "title": "Frontend Development with React",
+      "pages": 35,
+      "content": [
+        "React is a JavaScript library for building user interfaces.",
+        "Components enable developers to create reusable UI elements.",
+        "State management helps applications respond to user interactions.",
+        "Hooks simplify logic and lifecycle management.",
+        "React is widely used in modern web applications."
+      ]
+    },
+    {
+      "chapterNumber": 7,
+      "title": "Backend Development with Node.js",
+      "pages": 40,
+      "content": [
+        "Node.js enables JavaScript to run on the server.",
+        "Express.js simplifies API development.",
+        "Middleware processes requests before they reach controllers.",
+        "REST APIs allow communication between clients and servers.",
+        "Backend services manage business logic and data access."
+      ]
+    },
+    {
+      "chapterNumber": 8,
+      "title": "Working with Databases",
+      "pages": 28,
+      "content": [
+        "Databases store application data.",
+        "MySQL is a relational database management system.",
+        "MongoDB stores data in document format.",
+        "CRUD operations are the foundation of database interactions.",
+        "Proper database design improves performance and scalability."
+      ]
+    },
+    {
+      "chapterNumber": 9,
+      "title": "Authentication and Security",
+      "pages": 20,
+      "content": [
+        "Authentication verifies user identities.",
+        "Passwords should be securely hashed before storage.",
+        "JWT tokens provide a secure method for managing sessions.",
+        "Authorization controls access to resources.",
+        "Security practices protect applications from attacks."
+      ]
+    },
+    {
+      "chapterNumber": 10,
+      "title": "Software Architecture",
+      "pages": 25,
+      "content": [
+        "Software architecture defines how systems are structured.",
+        "MVC separates applications into Model, View, and Controller layers.",
+        "MVVM introduces a ViewModel to improve separation of concerns.",
+        "Clean architecture promotes maintainability and scalability.",
+        "Good architecture simplifies long-term development."
+      ]
+    },
+    {
+      "chapterNumber": 11,
+      "title": "Deployment",
+      "pages": 20,
+      "content": [
+        "Deployment makes applications accessible to users.",
+        "Frontend applications can be deployed using Vercel.",
+        "Backend applications can run on cloud infrastructure.",
+        "Continuous Integration automates testing and deployment.",
+        "Monitoring tools help maintain application reliability."
+      ]
+    },
+    {
+      "chapterNumber": 12,
+      "title": "Career Growth",
+      "pages": 30,
+      "content": [
+        "Building projects is the fastest way to improve development skills.",
+        "A portfolio showcases technical abilities to employers.",
+        "GitHub repositories demonstrate coding practices.",
+        "Technical interviews assess problem-solving and communication skills.",
+        "Continuous learning is essential in the technology industry."
+      ]
+    }
+  ],
+  "reviews": [
+    {
+      "reviewId": "REV001",
+      "user": "Alice Johnson",
+      "rating": 5,
+      "comment": "One of the best beginner-friendly programming books I have read.",
+      "date": "2025-02-14"
+    },
+    {
+      "reviewId": "REV002",
+      "user": "David Smith",
+      "rating": 4,
+      "comment": "Excellent explanations with practical examples.",
+      "date": "2025-03-01"
+    },
+    {
+      "reviewId": "REV003",
+      "user": "Sophia Brown",
+      "rating": 5,
+      "comment": "Great resource for aspiring full-stack developers.",
+      "date": "2025-04-20"
+    }
+  ],
+  "relatedBooks": [
+    {
+      "id": "BK002",
+      "title": "Mastering JavaScript"
+    },
+    {
+      "id": "BK003",
+      "title": "Learning React"
+    },
+    {
+      "id": "BK004",
+      "title": "Node.js in Action"
+    }
+  ]
+}

@@ -1,0 +1,554 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Under which article of the 1987 Philippine Constitution is the Civil Service Commission (CSC) created?",
+      "options": {
+        "A": "Article IX-A",
+        "B": "Article IX-B",
+        "C": "Article XI",
+        "D": "Article VI"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 2,
+      "question": "The Civil Service Commission is referred to as the ___ of the government.",
+      "options": {
+        "A": "Chief Audit Agency",
+        "B": "Central Personnel Agency",
+        "C": "National Wage Board",
+        "D": "Office of the Ombudsman"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 3,
+      "question": "What is the composition of the Civil Service Commission?",
+      "options": {
+        "A": "One Chairman and four Commissioners",
+        "B": "Three Commissioners only",
+        "C": "One Chairman and two Commissioners",
+        "D": "One Chairman and three Commissioners"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 4,
+      "question": "What is the term of office of the members of the CSC?",
+      "options": {
+        "A": "Four years",
+        "B": "Six years",
+        "C": "Seven years",
+        "D": "Ten years"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 5,
+      "question": "What is the minimum age requirement for a member of the CSC at the time of appointment?",
+      "options": {
+        "A": "30 years old",
+        "B": "35 years old",
+        "C": "40 years old",
+        "D": "45 years old"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 6,
+      "question": "Members of the CSC, including the Chairman, can only be removed from office through:",
+      "options": {
+        "A": "Resignation",
+        "B": "Impeachment",
+        "C": "A vote of Congress",
+        "D": "Presidential order"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 7,
+      "question": "Jurisdiction, as it applies to the CSC, means the power to:",
+      "options": {
+        "A": "Make laws",
+        "B": "Hear and decide cases",
+        "C": "Impeach officials",
+        "D": "Appoint commissioners"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 8,
+      "question": "The Administrative Code of 1987 is also known as:",
+      "options": {
+        "A": "Republic Act No. 6713",
+        "B": "Executive Order No. 292",
+        "C": "Presidential Decree No. 807",
+        "D": "Republic Act No. 3019"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 9,
+      "question": "Under the Administrative Code of 1987, the Civil Service Commission is governed primarily under:",
+      "options": {
+        "A": "Book I, Title V",
+        "B": "Book V, Title I",
+        "C": "Book III, Title II",
+        "D": "Book IV, Title III"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 10,
+      "question": "Under Section 32 of E.O. 292, public officers and employees are required to lead:",
+      "options": {
+        "A": "Modest lives",
+        "B": "Wealthy lives",
+        "C": "Private lives",
+        "D": "Reserved lives"
+      },
+      "answer": "A"
+    },
+    {
+      "id": 11,
+      "question": "What must a public officer submit under oath upon assumption of office?",
+      "options": {
+        "A": "A loyalty pledge",
+        "B": "A declaration of assets, liabilities and net worth",
+        "C": "A medical certificate",
+        "D": "A resignation letter"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 12,
+      "question": "Any purchase by a government officer of property sold by the government for non-payment of tax is considered:",
+      "options": {
+        "A": "Valid",
+        "B": "Void",
+        "C": "Conditional",
+        "D": "Taxable"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 13,
+      "question": "A head of department shall NOT be civilly liable for the wrongful acts of subordinates unless he:",
+      "options": {
+        "A": "Knew about them informally",
+        "B": "Authorized them by written order",
+        "C": "Was present when they occurred",
+        "D": "Failed to report them"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 14,
+      "question": "The terms and conditions of employment of all government employees shall be fixed by:",
+      "options": {
+        "A": "The agency head",
+        "B": "Law",
+        "C": "Collective agreement",
+        "D": "The President alone"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 15,
+      "question": "Entrance to the Career Service is generally based on:",
+      "options": {
+        "A": "Political appointment",
+        "B": "Merit and fitness through competitive examinations",
+        "C": "Length of residency",
+        "D": "Random selection"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 16,
+      "question": "Which characteristic distinguishes the Non-Career Service?",
+      "options": {
+        "A": "Security of tenure",
+        "B": "Tenure limited to a specified period or coterminous with the appointing authority",
+        "C": "Entry by competitive examination",
+        "D": "Guaranteed advancement"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 17,
+      "question": "A qualification standard expresses the ___ for a class of positions.",
+      "options": {
+        "A": "Maximum salary",
+        "B": "Minimum requirements",
+        "C": "Retirement age",
+        "D": "Disciplinary penalties"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 18,
+      "question": "A temporary appointment in the career service shall NOT exceed:",
+      "options": {
+        "A": "Six months",
+        "B": "Twelve months",
+        "C": "Twenty-four months",
+        "D": "Three months"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 19,
+      "question": "The government-wide employee suggestions and incentive awards system is administered under rules promulgated by:",
+      "options": {
+        "A": "The President",
+        "B": "The Commission (CSC)",
+        "C": "The Department of Finance",
+        "D": "Congress"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 20,
+      "question": "The power of an administrative agency to promulgate rules and regulations is called:",
+      "options": {
+        "A": "Quasi-judicial power",
+        "B": "Quasi-legislative (rule-making) power",
+        "C": "Adjudicatory power",
+        "D": "Executive power"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 21,
+      "question": "The power of an administrative agency to hear, determine and resolve cases is called:",
+      "options": {
+        "A": "Rule-making power",
+        "B": "Quasi-legislative power",
+        "C": "Adjudicatory (quasi-judicial) power",
+        "D": "Legislative power"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 22,
+      "question": "Public office was defined as a right, authority and duty created and conferred by law in which case?",
+      "options": {
+        "A": "Tecson vs. Sandiganbayan",
+        "B": "Fernandez v. Sto. Tomas",
+        "C": "Ingles vs. Mutuc",
+        "D": "Gamboa vs. Court of Appeals"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 23,
+      "question": "Which of the following is a characteristic of public office?",
+      "options": {
+        "A": "It is private property",
+        "B": "It is a public trust",
+        "C": "It can be inherited",
+        "D": "It can be subject of a contract"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 24,
+      "question": "What are the two modes of acquiring title to a public office?",
+      "options": {
+        "A": "Election and appointment",
+        "B": "Promotion and transfer",
+        "C": "Hiring and contracting",
+        "D": "Inheritance and purchase"
+      },
+      "answer": "A"
+    },
+    {
+      "id": 25,
+      "question": "Which of the following is a requisite of a valid appointment?",
+      "options": {
+        "A": "The position must be occupied",
+        "B": "The appointee accepts by taking an oath of office",
+        "C": "The appointee must be a relative of the head",
+        "D": "No CSC approval is needed"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 26,
+      "question": "According to security of tenure, appointments are classified as:",
+      "options": {
+        "A": "Regular and casual",
+        "B": "Permanent and temporary",
+        "C": "Career and contractual",
+        "D": "Full-time and part-time"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 27,
+      "question": "The time during which an officer may claim to hold office as of right is called the:",
+      "options": {
+        "A": "Tenure of office",
+        "B": "Term of office",
+        "C": "Hold-over period",
+        "D": "Probation"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 28,
+      "question": "The period during which the incumbent actually holds office is called the:",
+      "options": {
+        "A": "Term of office",
+        "B": "Tenure of office",
+        "C": "Hold-over rule",
+        "D": "Retirement period"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 29,
+      "question": "Nonfeasance refers to:",
+      "options": {
+        "A": "Doing an act one had no legal right to perform",
+        "B": "The neglect or refusal to perform a legal obligation",
+        "C": "Failure to use proper care and skill in duty",
+        "D": "Acceptance of an incompatible office"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 30,
+      "question": "Misfeasance refers to the failure to use the required degree of:",
+      "options": {
+        "A": "Honesty and loyalty",
+        "B": "Care, skill and diligence in performing official duty",
+        "C": "Political neutrality",
+        "D": "Punctuality"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 31,
+      "question": "Malfeasance is doing, through ignorance, inattention or malice, an act which the officer:",
+      "options": {
+        "A": "Had a legal right to perform",
+        "B": "Had no legal right to perform",
+        "C": "Was ordered to perform",
+        "D": "Performed in good faith"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 32,
+      "question": "Under the Administrative Code/Civil Service, preventive suspension shall NOT exceed:",
+      "options": {
+        "A": "60 days",
+        "B": "90 days",
+        "C": "6 months",
+        "D": "30 days"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 33,
+      "question": "Under the Ombudsman Act of 1989 (R.A. 6770), preventive suspension shall not be more than:",
+      "options": {
+        "A": "90 days",
+        "B": "6 months",
+        "C": "60 days",
+        "D": "1 year"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 34,
+      "question": "Preventive suspension is best described as:",
+      "options": {
+        "A": "A penalty for an offense",
+        "B": "A disciplinary preventive measure during investigation",
+        "C": "A form of dismissal",
+        "D": "A reward for good conduct"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 35,
+      "question": "Which of the following is a requisite for a valid resignation?",
+      "options": {
+        "A": "It must be involuntary",
+        "B": "It must be voluntary and accepted by the proper officer",
+        "C": "It must be kept secret",
+        "D": "It requires no acceptance"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 36,
+      "question": "The forcible and permanent separation of an officer from office before the expiration of his term is called:",
+      "options": {
+        "A": "Resignation",
+        "B": "Removal",
+        "C": "Recall",
+        "D": "Hold-over"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 37,
+      "question": "Government employees who render the prescribed hours of work are entitled annually to:",
+      "options": {
+        "A": "10 days vacation and 10 days sick leave",
+        "B": "15 days vacation and 15 days sick leave",
+        "C": "20 days vacation and 20 days sick leave",
+        "D": "5 days vacation and 5 days sick leave"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 38,
+      "question": "An employee continuously absent without approved leave for at least how many working days shall be considered AWOL?",
+      "options": {
+        "A": "15 working days",
+        "B": "30 working days",
+        "C": "45 working days",
+        "D": "60 working days"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 39,
+      "question": "The maximum number of days that may be availed of under Special Privilege Leave (SPL) annually is:",
+      "options": {
+        "A": "Three days",
+        "B": "Five days",
+        "C": "Seven days",
+        "D": "Ten days"
+      },
+      "answer": "A"
+    },
+    {
+      "id": 40,
+      "question": "Under R.A. No. 11210, a pregnant female worker in government is granted maternity leave of:",
+      "options": {
+        "A": "60 days",
+        "B": "90 days",
+        "C": "105 days",
+        "D": "120 days"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 41,
+      "question": "Paternity leave grants a married male employee how many working days for each of the first four deliveries of his spouse?",
+      "options": {
+        "A": "Five working days",
+        "B": "Seven working days",
+        "C": "Ten working days",
+        "D": "Fourteen working days"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 42,
+      "question": "Maternity leave granted for miscarriage or emergency termination of pregnancy is:",
+      "options": {
+        "A": "30 days with full pay",
+        "B": "60 days with full pay",
+        "C": "90 days with full pay",
+        "D": "105 days with full pay"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 43,
+      "question": "Under the Violence Against Women and Their Children Act of 2004, the qualified woman employee is entitled to a leave of:",
+      "options": {
+        "A": "Five days",
+        "B": "Ten days",
+        "C": "Fifteen days",
+        "D": "Two months"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 44,
+      "question": "Special leave benefits for women undergoing surgery for gynecological disorders (R.A. 9710) grant a maximum of:",
+      "options": {
+        "A": "One month with full pay",
+        "B": "Two months with full pay",
+        "C": "Three months with full pay",
+        "D": "Six months with full pay"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 45,
+      "question": "Terminal leave refers to the money value of an employee's:",
+      "options": {
+        "A": "Monthly salary",
+        "B": "Total accumulated leave credits upon retirement or separation",
+        "C": "Annual bonus",
+        "D": "Forced leave only"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 46,
+      "question": "The statement 'Public office is a public trust' is found in which provision of the 1987 Constitution?",
+      "options": {
+        "A": "Article IX-B, Section 2",
+        "B": "Article XI, Section 1",
+        "C": "Article VI, Section 3",
+        "D": "Article VII, Section 1"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 47,
+      "question": "The special anti-graft court created by Presidential Decree No. 1606 is the:",
+      "options": {
+        "A": "Court of Appeals",
+        "B": "Sandiganbayan",
+        "C": "Supreme Court",
+        "D": "Ombudsman"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 48,
+      "question": "The 2017 Rules on Administrative Cases in the Civil Service (RACCS) was promulgated on:",
+      "options": {
+        "A": "January 1, 2017",
+        "B": "July 3, 2017",
+        "C": "December 25, 2017",
+        "D": "June 12, 2017"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 49,
+      "question": "Republic Act No. 9485 is also known as the:",
+      "options": {
+        "A": "Anti-Graft and Corrupt Practices Act",
+        "B": "Anti-Red Tape Act of 2007",
+        "C": "Solo Parents' Welfare Act",
+        "D": "Magna Carta of Women"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 50,
+      "question": "Decisions, orders or rulings of the CSC may be brought to the Supreme Court on certiorari within:",
+      "options": {
+        "A": "Fifteen days from receipt",
+        "B": "Thirty days from receipt",
+        "C": "Sixty days from receipt",
+        "D": "Ninety days from receipt"
+      },
+      "answer": "B"
+    }
+  ]
+}

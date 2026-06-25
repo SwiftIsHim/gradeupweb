@@ -1,6 +1,7 @@
 const config = require("../config/env");
 const ApiError = require("../utils/ApiError");
 const User = require("../models/user.model");
+const { encodeAccessToken } = require("../utils/sessionToken");
 
 /**
  * Accounts are persisted in MongoDB (see models/user.model.js).
@@ -21,7 +22,7 @@ function publicUser(user) {
 
 function issueSession(user) {
   // TODO: return real signed tokens from the Civilpromo login/signup mutation.
-  const accessToken = `stub.${Buffer.from(user.email).toString("base64url")}.access`;
+  const accessToken = encodeAccessToken(user.email);
   return {
     access_token: accessToken,
     refresh_token: `stub.${user.id}.refresh`,

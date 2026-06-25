@@ -13,8 +13,10 @@ interface ApiResponse {
   error?: string
 }
 
-// Where to send the user once they're authenticated.
-const POST_AUTH_REDIRECT = "/onboarding"
+// Where to send the user once they're authenticated. Returning users go
+// straight to their dashboard; brand-new accounts run onboarding first.
+const LOGIN_REDIRECT = "/dashboard"
+const SIGNUP_REDIRECT = "/onboarding"
 
 function toE164(national: string): string {
   const digits = national.replace(/\D/g, "").replace(/^0+/, "")
@@ -78,6 +80,7 @@ export function useLoginFormViewModel() {
             email: emailValue.trim(),
             password: passwordValue,
           })
+          router.push(LOGIN_REDIRECT)
         } else {
           // New user — passwords must match before we create the account.
           if (passwordValue !== confirmPasswordValue) {
@@ -90,9 +93,9 @@ export function useLoginFormViewModel() {
             name: nameValue.trim() || undefined,
             password: passwordValue,
           })
+          router.push(SIGNUP_REDIRECT)
         }
 
-        router.push(POST_AUTH_REDIRECT)
         router.refresh()
       } catch (error) {
         setErrorMessage(

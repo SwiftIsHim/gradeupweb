@@ -1,8 +1,9 @@
 /**
  * Onboarding content + types.
  *
- * Eight steps, UI-only (nothing is persisted to the backend yet). The step
- * order here drives the progress bar and the "Step X of 8" counter.
+ * Eight steps. Answers are persisted to the backend on finish (see the view
+ * model's `finish` → POST /api/onboarding). The step order here drives the
+ * progress bar and the "Step X of 8" counter.
  */
 
 export type StepId =

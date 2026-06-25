@@ -54,15 +54,29 @@ export function OnboardingFlow() {
           {step.content}
 
           <div className="mt-8">
+            {vm.saveError ? (
+              <p
+                role="alert"
+                className="mb-3 rounded-md bg-red-50 px-4 py-2 text-sm text-red-700"
+              >
+                {vm.saveError}
+              </p>
+            ) : null}
             <Button
               type="button"
               variant="brand"
               onClick={vm.next}
-              disabled={!vm.canContinue}
+              disabled={!vm.canContinue || vm.isSaving}
               className="h-12 w-full rounded-full text-base disabled:opacity-50"
             >
-              Continue
-              <ArrowRight />
+              {vm.isSaving ? (
+                "Saving…"
+              ) : (
+                <>
+                  {vm.isLastStep ? "Finish" : "Continue"}
+                  <ArrowRight />
+                </>
+              )}
             </Button>
           </div>
         </StepCard>

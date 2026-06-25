@@ -16,7 +16,7 @@ import {
 } from "@/src/onboarding/model/onboarding"
 
 // Where "Get started" sends the user after onboarding.
-const FINISH_REDIRECT = "/"
+const FINISH_REDIRECT = "/dashboard"
 
 const DAY_MS = 1000 * 60 * 60 * 24
 
@@ -50,6 +50,8 @@ export function useOnboardingViewModel() {
   const [stepIndex, setStepIndex] = useState(0)
   const [data, setData] = useState<OnboardingData>(initialData)
   const [done, setDone] = useState(false)
+  const [isSaving, setIsSaving] = useState(false)
+  const [saveError, setSaveError] = useState<string | null>(null)
 
   const stepId: StepId = STEP_ORDER[stepIndex]
 
@@ -96,14 +98,52 @@ export function useOnboardingViewModel() {
 
   const isLastStep = stepIndex === TOTAL_STEPS - 1
 
-  const next = useCallback(() => {
-    if (!canContinue) return
-    if (isLastStep) {
+  // Persist answers to the backend, then reveal the completion screen.
+  const finish = useCallback(async () => {
+    if (isSaving) return
+    setSaveError(null)
+    setIsSaving(true)
+    try {
+      const res = await fetch("/api/onboarding", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName: data.firstName.trim(),
+          lastName: data.lastName.trim() || undefined,
+          goal: data.goal,
+          gradeLevel: data.gradeLevel,
+          subjects: data.subjects,
+          examDateMode: data.examDateMode,
+          examDate: examDate ? examDate.toISOString() : null,
+          dailyMinutes: data.dailyMinutes,
+          schedule: data.schedule,
+          notifications: data.notifications,
+        }),
+      })
+      const payload = (await res.json().catch(() => ({}))) as { error?: string }
+      if (!res.ok) {
+        throw new Error(payload.error ?? "Couldn't save your setup. Try again.")
+      }
       setDone(true)
+    } catch (error) {
+      setSaveError(
+        error instanceof Error
+          ? error.message
+          : "Network error. Check your connection and try again.",
+      )
+    } finally {
+      setIsSaving(false)
+    }
+  }, [isSaving, data, examDate])
+
+  const next = useCallback(() => {
+    if (!canContinue || isSaving) return
+    if (isLastStep) {
+      void finish()
       return
     }
     setStepIndex((i) => Math.min(i + 1, TOTAL_STEPS - 1))
-  }, [canContinue, isLastStep])
+  }, [canContinue, isSaving, isLastStep, finish])
 
   const back = useCallback(() => {
     setStepIndex((i) => Math.max(i - 1, 0))
@@ -176,6 +216,8 @@ export function useOnboardingViewModel() {
     canContinue,
     isLastStep,
     done,
+    isSaving,
+    saveError,
     next,
     back,
     adjustSetup,
