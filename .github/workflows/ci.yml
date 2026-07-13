@@ -12,6 +12,10 @@ jobs:
     defaults:
       run:
         working-directory: frontend
+    env:
+      CI: true
+      NEXT_TELEMETRY_DISABLED: 1
+      SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN || '' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

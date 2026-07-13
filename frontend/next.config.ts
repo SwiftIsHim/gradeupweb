@@ -1,6 +1,8 @@
 import { withSentryConfig } from "@sentry/nextjs";
 import type { NextConfig } from "next";
 
+const isCI = process.env.CI === "true";
+
 const nextConfig: NextConfig = {
   // WatermelonDB ships partly-untranspiled modern JS; let Next compile it so
   // it bundles cleanly under Turbopack.
@@ -16,7 +18,7 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(nextConfig, {
+const config = withSentryConfig(nextConfig, {
   // For all available options, see:
   // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
@@ -25,7 +27,7 @@ export default withSentryConfig(nextConfig, {
   project: "javascript-nextjs",
 
   // Only print logs for uploading source maps in CI
-  silent: !process.env.CI,
+  silent: isCI,
 
   // For all available options, see:
   // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
@@ -53,3 +55,5 @@ export default withSentryConfig(nextConfig, {
     },
   },
 });
+
+export default isCI ? nextConfig : config;
