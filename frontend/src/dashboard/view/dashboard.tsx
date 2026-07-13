@@ -1,20 +1,20 @@
-import Link from "next/link"
-import { ArrowRight, Bell, Flame, Search } from "lucide-react"
+import Link from "next/link";
+import { ArrowRight, Bell, Flame, Search } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { ThemeToggle } from "@/src/theme/theme-toggle"
-import { Sidebar } from "@/src/dashboard/view/sidebar"
-import { ContinueLearning } from "@/src/dashboard/view/continue-learning"
-import { DiagnosticCard } from "@/src/diagnostics/view/diagnostic-card"
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { ThemeToggle } from "@/src/theme/theme-toggle";
+import { Sidebar } from "@/src/dashboard/view/sidebar";
+import { ContinueLearning } from "@/src/dashboard/view/continue-learning";
+import { DiagnosticCard } from "@/src/diagnostics/view/diagnostic-card";
 import {
   recentActivityPlaceholder,
   recommendedPlaceholder,
   streakPlaceholder,
   todayGoalPlaceholder,
   type DashboardHeader,
-} from "@/src/dashboard/model/dashboard"
+} from "@/src/dashboard/model/dashboard";
 
 export function Dashboard({ header }: { header: DashboardHeader }) {
   return (
@@ -38,7 +38,7 @@ export function Dashboard({ header }: { header: DashboardHeader }) {
         </main>
       </div>
     </div>
-  )
+  );
 }
 
 function Topbar() {
@@ -70,11 +70,11 @@ function Topbar() {
         </Badge>
       </div>
     </header>
-  )
+  );
 }
 
 function WelcomeBanner({ header }: { header: DashboardHeader }) {
-  const days = header.daysToExam
+  const days = header.daysToExam;
   return (
     <section className="overflow-hidden rounded-2xl bg-[#1c2620] text-white">
       <div className="flex flex-col gap-6 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-8">
@@ -111,7 +111,7 @@ function WelcomeBanner({ header }: { header: DashboardHeader }) {
         {days !== null ? <ExamRing days={days} /> : null}
       </div>
     </section>
-  )
+  );
 }
 
 function ExamRing({ days }: { days: number }) {
@@ -145,17 +145,22 @@ function ExamRing({ days }: { days: number }) {
         <span className="text-[11px] text-neutral-400">days to exam</span>
       </div>
     </div>
-  )
+  );
 }
 
 function TodayGoal() {
-  const { done, total, caption, ctaLabel } = todayGoalPlaceholder
-  const pct = total > 0 ? Math.round((done / total) * 100) : 0
+  const { done, total, caption, ctaLabel } = todayGoalPlaceholder;
+  const pct = total > 0 ? Math.round((done / total) * 100) : 0;
   return (
     <section className="rounded-2xl border border-border bg-card p-6">
-      <h2 className="text-lg font-semibold tracking-tight">Today's goal</h2>
+      <h2 className="text-lg font-semibold tracking-tight">
+        Today&apos;s goal
+      </h2>
       <p className="mt-3 text-3xl font-bold">
-        {done} <span className="text-base font-medium text-muted-foreground">of {total} cards</span>
+        {done}{" "}
+        <span className="text-base font-medium text-muted-foreground">
+          of {total} cards
+        </span>
       </p>
       <p className="mt-1 text-sm text-muted-foreground">{caption}</p>
       <div className="mt-4 h-2 w-full overflow-hidden rounded-full bg-muted">
@@ -172,7 +177,7 @@ function TodayGoal() {
         <Link href="/dashboard/courses">{ctaLabel}</Link>
       </Button>
     </section>
-  )
+  );
 }
 
 function RecentActivity() {
@@ -186,7 +191,7 @@ function RecentActivity() {
       </div>
       <EmptyState text={recentActivityPlaceholder.emptyText} />
     </section>
-  )
+  );
 }
 
 function Recommended() {
@@ -217,7 +222,7 @@ function Recommended() {
         <EmptyState text={recommendedPlaceholder.emptyText} />
       </div>
     </section>
-  )
+  );
 }
 
 function SeeAll({ href, label = "See all" }: { href: string; label?: string }) {
@@ -229,9 +234,11 @@ function SeeAll({ href, label = "See all" }: { href: string; label?: string }) {
       {label}
       <ArrowRight className="size-3.5" />
     </Link>
-  )
+  );
 }
 
 function EmptyState({ text }: { text: string }) {
-  return <p className="py-2 text-center text-sm text-muted-foreground">{text}</p>
+  return (
+    <p className="py-2 text-center text-sm text-muted-foreground">{text}</p>
+  );
 }

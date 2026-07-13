@@ -1,18 +1,18 @@
-"use client"
+"use client";
 
-import type { ReactNode } from "react"
-import { ArrowRight, Check, Target } from "lucide-react"
+import type { ReactNode } from "react";
+import { ArrowRight, Check, Target } from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { cn } from "@/lib/utils"
-import { useOnboardingViewModel } from "@/src/onboarding/viewmodel/useOnboardingViewModel"
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { useOnboardingViewModel } from "@/src/onboarding/viewmodel/useOnboardingViewModel";
 import {
   ProgressHeader,
   StepCard,
   RadioRow,
   OptionCard,
   TextField,
-} from "@/src/onboarding/view/primitives"
+} from "@/src/onboarding/view/primitives";
 import {
   welcomeContent,
   goalContent,
@@ -26,18 +26,18 @@ import {
   brandInitial,
   brandName,
   MONTHS,
-} from "@/src/onboarding/model/onboarding"
+} from "@/src/onboarding/model/onboarding";
 
-type VM = ReturnType<typeof useOnboardingViewModel>
+type VM = ReturnType<typeof useOnboardingViewModel>;
 
 export function OnboardingFlow() {
-  const vm = useOnboardingViewModel()
+  const vm = useOnboardingViewModel();
 
   if (vm.done) {
-    return <Completion vm={vm} />
+    return <Completion vm={vm} />;
   }
 
-  const step = renderStep(vm)
+  const step = renderStep(vm);
 
   return (
     <div className="flex min-h-screen flex-col bg-neutral-50 dark:bg-neutral-950">
@@ -82,13 +82,13 @@ export function OnboardingFlow() {
         </StepCard>
       </main>
     </div>
-  )
+  );
 }
 
 interface RenderedStep {
-  title: string
-  subtitle?: string
-  content: ReactNode
+  title: string;
+  subtitle?: string;
+  content: ReactNode;
 }
 
 function renderStep(vm: VM): RenderedStep {
@@ -109,7 +109,7 @@ function renderStep(vm: VM): RenderedStep {
             ))}
           </ul>
         ),
-      }
+      };
 
     case "goal":
       return {
@@ -128,7 +128,7 @@ function renderStep(vm: VM): RenderedStep {
             ))}
           </div>
         ),
-      }
+      };
 
     case "name":
       return {
@@ -156,7 +156,7 @@ function renderStep(vm: VM): RenderedStep {
             />
           </div>
         ),
-      }
+      };
 
     case "grade":
       return {
@@ -175,7 +175,7 @@ function renderStep(vm: VM): RenderedStep {
             ))}
           </div>
         ),
-      }
+      };
 
     case "subjects":
       return {
@@ -194,14 +194,14 @@ function renderStep(vm: VM): RenderedStep {
             ))}
           </div>
         ),
-      }
+      };
 
     case "examDate":
       return {
         title: examDateContent.title,
         subtitle: examDateContent.subtitle,
         content: <ExamDateStep vm={vm} />,
-      }
+      };
 
     case "dailyGoal":
       return {
@@ -242,7 +242,7 @@ function renderStep(vm: VM): RenderedStep {
             </div>
           </div>
         ),
-      }
+      };
 
     case "notifications":
       return {
@@ -263,27 +263,32 @@ function renderStep(vm: VM): RenderedStep {
             ))}
           </div>
         ),
-      }
+      };
 
     default:
-      return { title: "", content: null }
+      return { title: "", content: null };
   }
 }
 
 function ExamDateStep({ vm }: { vm: VM }) {
-  const days = Array.from({ length: 31 }, (_, i) => String(i + 1))
-  const currentYear = new Date().getFullYear()
-  const years = Array.from({ length: 4 }, (_, i) => String(currentYear + i))
+  const days = Array.from({ length: 31 }, (_, i) => String(i + 1));
+  const currentYear = new Date().getFullYear();
+  const years = Array.from({ length: 4 }, (_, i) => String(currentYear + i));
 
-  const setCustomDate = (key: "examDay" | "examMonth" | "examYear", value: string) => {
-    vm.update(key, value)
-    vm.update("examDateMode", "custom")
-  }
+  const setCustomDate = (
+    key: "examDay" | "examMonth" | "examYear",
+    value: string,
+  ) => {
+    vm.update(key, value);
+    vm.update("examDateMode", "custom");
+  };
 
   return (
     <div className="space-y-6">
       <div>
-        <p className="mb-3 text-sm font-semibold">{examDateContent.quickLabel}</p>
+        <p className="mb-3 text-sm font-semibold">
+          {examDateContent.quickLabel}
+        </p>
         <div className="grid grid-cols-3 gap-3">
           {examDateContent.quickOptions.map((opt) => (
             <OptionCard
@@ -298,7 +303,9 @@ function ExamDateStep({ vm }: { vm: VM }) {
       </div>
 
       <div>
-        <p className="mb-3 text-sm font-semibold">{examDateContent.pickLabel}</p>
+        <p className="mb-3 text-sm font-semibold">
+          {examDateContent.pickLabel}
+        </p>
         <div className="grid grid-cols-3 gap-3">
           <SelectBox
             label={examDateContent.dayLabel}
@@ -331,34 +338,34 @@ function ExamDateStep({ vm }: { vm: VM }) {
               {vm.daysToExam} days to your exam
             </p>
             <p className="text-xs text-neutral-400">
-              We'll suggest {vm.data.dailyMinutes || "30"} min/day across 12
-              chapters to get you ready in time.
+              We&apos;ll suggest {vm.data.dailyMinutes || "30"} min/day across
+              12 chapters to get you ready in time.
             </p>
           </div>
         </div>
       ) : null}
     </div>
-  )
+  );
 }
 
 function quickSubtitle(mode: "4w" | "8w" | "custom"): string | undefined {
-  if (mode === "custom") return undefined
-  const days = mode === "4w" ? 28 : 56
-  const d = new Date(Date.now() + days * 24 * 60 * 60 * 1000)
-  return `${d.getDate()} ${MONTHS[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`
+  if (mode === "custom") return undefined;
+  const days = mode === "4w" ? 28 : 56;
+  const d = new Date(Date.now() + days * 24 * 60 * 60 * 1000);
+  return `${d.getDate()} ${MONTHS[d.getMonth()].slice(0, 3)} ${d.getFullYear()}`;
 }
 
 interface SelectBoxProps {
-  label: string
-  value: string
-  onChange: (next: string) => void
-  options: Array<string | { value: string; label: string }>
+  label: string;
+  value: string;
+  onChange: (next: string) => void;
+  options: Array<string | { value: string; label: string }>;
 }
 
 function SelectBox({ label, value, onChange, options }: SelectBoxProps) {
   const normalized = options.map((o) =>
     typeof o === "string" ? { value: o, label: o } : o,
-  )
+  );
   return (
     <label className="flex flex-col rounded-xl border-2 border-green-500 bg-white px-4 py-2.5 text-center dark:bg-neutral-900">
       <span className="text-[11px] text-muted-foreground">{label}</span>
@@ -377,18 +384,18 @@ function SelectBox({ label, value, onChange, options }: SelectBoxProps) {
         ))}
       </select>
     </label>
-  )
+  );
 }
 
 function Completion({ vm }: { vm: VM }) {
-  const labels = completionContent.summaryLabels
+  const labels = completionContent.summaryLabels;
   const rows: Array<{ label: string; value: string }> = [
     { label: labels.name, value: vm.summary.name },
     { label: labels.grade, value: vm.summary.grade },
     { label: labels.examDate, value: vm.summary.examDate },
     { label: labels.dailyGoal, value: vm.summary.dailyGoal },
     { label: labels.notifications, value: vm.summary.notifications },
-  ]
+  ];
 
   return (
     <div className="flex min-h-screen flex-col bg-neutral-50 text-foreground dark:bg-neutral-950">
@@ -396,7 +403,9 @@ function Completion({ vm }: { vm: VM }) {
         <span className="flex size-8 items-center justify-center rounded-md bg-green-500 text-base font-bold text-white">
           {brandInitial}
         </span>
-        <span className="text-lg font-semibold tracking-tight">{brandName}</span>
+        <span className="text-lg font-semibold tracking-tight">
+          {brandName}
+        </span>
       </div>
 
       <main className="flex flex-1 flex-col items-center justify-center px-4 pb-16 text-center">
@@ -407,11 +416,12 @@ function Completion({ vm }: { vm: VM }) {
         </div>
 
         <h1 className="mt-8 text-3xl font-bold tracking-tight">
-          You're all set, {vm.data.firstName}!
+          You&apos;re all set, {vm.data.firstName}!
         </h1>
         <p className="mt-3 max-w-lg text-sm text-muted-foreground">
-          Your {vm.daysToExam ?? "personalized"}-day study plan is ready. We'll
-          start with {vm.firstSubjectTitle} tomorrow at {vm.startTime}.
+          Your {vm.daysToExam ?? "personalized"}-day study plan is ready.
+          We&apos;ll start with {vm.firstSubjectTitle} tomorrow at{" "}
+          {vm.startTime}.
         </p>
 
         <div className="mt-8 w-full max-w-xl overflow-hidden rounded-2xl bg-white shadow-sm dark:bg-neutral-900">
@@ -421,7 +431,9 @@ function Completion({ vm }: { vm: VM }) {
                 key={row.label}
                 className="flex items-center justify-between px-6 py-4"
               >
-                <span className="text-sm text-muted-foreground">{row.label}</span>
+                <span className="text-sm text-muted-foreground">
+                  {row.label}
+                </span>
                 <span className="text-sm font-semibold text-foreground">
                   {row.value}
                 </span>
@@ -452,5 +464,5 @@ function Completion({ vm }: { vm: VM }) {
         </div>
       </main>
     </div>
-  )
+  );
 }

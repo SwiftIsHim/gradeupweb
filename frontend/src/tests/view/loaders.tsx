@@ -1,15 +1,15 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import Link from "next/link"
-import { Loader2 } from "lucide-react"
+import { useEffect, useState } from "react";
+import Link from "next/link";
+import { Loader2 } from "lucide-react";
 
-import { loadTestsHub, loadTestContent } from "@/src/tests/data/loadTests"
-import type { TestsHubData } from "@/src/tests/data/loadTests"
-import type { TestContent } from "@/src/tests/model/tests"
+import { loadTestsHub, loadTestContent } from "@/src/tests/data/loadTests";
+import type { TestsHubData } from "@/src/tests/data/loadTests";
+import type { TestContent } from "@/src/tests/model/tests";
 
-import { TestsHubView } from "./tests-hub"
-import { TestRunner } from "./test-runner"
+import { TestsHubView } from "./tests-hub";
+import { TestRunner } from "./test-runner";
 
 /**
  * Client loaders for the Tests section. They read test content from
@@ -22,39 +22,38 @@ type LoadState<T> =
   | { status: "loading" }
   | { status: "error"; message: string }
   | { status: "notFound" }
-  | { status: "ready"; data: T }
+  | { status: "ready"; data: T };
 
 function useStudyData<T>(
   load: () => Promise<T | null>,
   deps: unknown[],
 ): LoadState<T> {
-  const [state, setState] = useState<LoadState<T>>({ status: "loading" })
+  const [state, setState] = useState<LoadState<T>>({ status: "loading" });
 
   useEffect(() => {
-    let cancelled = false
-    setState({ status: "loading" })
+    let cancelled = false;
     load()
       .then((data) => {
-        if (cancelled) return
+        if (cancelled) return;
         setState(
           data === null ? { status: "notFound" } : { status: "ready", data },
-        )
+        );
       })
       .catch((error) => {
-        if (cancelled) return
+        if (cancelled) return;
         setState({
           status: "error",
           message:
             error instanceof Error ? error.message : "Something went wrong.",
-        })
-      })
+        });
+      });
     return () => {
-      cancelled = true
-    }
+      cancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps)
+  }, deps);
 
-  return state
+  return state;
 }
 
 function Centered({ children }: { children: React.ReactNode }) {
@@ -62,7 +61,7 @@ function Centered({ children }: { children: React.ReactNode }) {
     <div className="flex min-h-[40vh] items-center justify-center px-4 text-center">
       {children}
     </div>
-  )
+  );
 }
 
 function LoadingState() {
@@ -73,7 +72,7 @@ function LoadingState() {
         Loading…
       </span>
     </Centered>
-  )
+  );
 }
 
 function ErrorState({ message }: { message: string }) {
@@ -83,14 +82,16 @@ function ErrorState({ message }: { message: string }) {
         {message}
       </p>
     </Centered>
-  )
+  );
 }
 
 function NotFoundState() {
   return (
     <Centered>
       <div className="space-y-3">
-        <p className="text-sm text-muted-foreground">We couldn’t find that test.</p>
+        <p className="text-sm text-muted-foreground">
+          We couldn’t find that test.
+        </p>
         <Link
           href="/dashboard/tests"
           className="text-sm font-medium text-green-600 hover:text-green-700"
@@ -99,23 +100,23 @@ function NotFoundState() {
         </Link>
       </div>
     </Centered>
-  )
+  );
 }
 
 export function TestsHubLoader() {
-  const state = useStudyData<TestsHubData>(() => loadTestsHub(), [])
+  const state = useStudyData<TestsHubData>(() => loadTestsHub(), []);
 
-  if (state.status === "loading") return <LoadingState />
-  if (state.status === "error") return <ErrorState message={state.message} />
-  if (state.status === "notFound") return <NotFoundState />
-  return <TestsHubView data={state.data} />
+  if (state.status === "loading") return <LoadingState />;
+  if (state.status === "error") return <ErrorState message={state.message} />;
+  if (state.status === "notFound") return <NotFoundState />;
+  return <TestsHubView data={state.data} />;
 }
 
 export function TestRunnerLoader({ slug }: { slug: string }) {
-  const state = useStudyData<TestContent>(() => loadTestContent(slug), [slug])
+  const state = useStudyData<TestContent>(() => loadTestContent(slug), [slug]);
 
-  if (state.status === "loading") return <LoadingState />
-  if (state.status === "error") return <ErrorState message={state.message} />
-  if (state.status === "notFound") return <NotFoundState />
-  return <TestRunner test={state.data} />
+  if (state.status === "loading") return <LoadingState />;
+  if (state.status === "error") return <ErrorState message={state.message} />;
+  if (state.status === "notFound") return <NotFoundState />;
+  return <TestRunner test={state.data} />;
 }

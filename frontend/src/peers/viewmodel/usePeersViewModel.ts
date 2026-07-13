@@ -3,7 +3,7 @@ import { SAMPLE_PEERS } from "../model/peers";
 
 export function usePeersViewModel() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [peers, setPeers] = useState(SAMPLE_PEERS);
+  const [peers] = useState(SAMPLE_PEERS);
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
