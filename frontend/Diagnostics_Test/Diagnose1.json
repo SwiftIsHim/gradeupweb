@@ -1,0 +1,114 @@
+{
+  "questions": [
+    {
+      "id": 1,
+      "question": "Which constitutional principle requires that appointments in the civil service be based on merit and fitness?",
+      "options": {
+        "A": "Political affiliation",
+        "B": "Merit System",
+        "C": "Seniority Rule",
+        "D": "Equal Representation"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 2,
+      "question": "Who is primarily responsible for administering the Civil Service Examination?",
+      "options": {
+        "A": "Department of Justice",
+        "B": "Commission on Elections",
+        "C": "Civil Service Commission",
+        "D": "Department of Labor and Employment"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 3,
+      "question": "What is the primary purpose of the Civil Service Commission?",
+      "options": {
+        "A": "To collect taxes",
+        "B": "To regulate government employment",
+        "C": "To conduct elections",
+        "D": "To approve national budgets"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 4,
+      "question": "A permanent appointment is issued to a person who:",
+      "options": {
+        "A": "Meets all qualification requirements",
+        "B": "Is recommended by a politician",
+        "C": "Has worked for one year",
+        "D": "Has no civil service eligibility"
+      },
+      "answer": "A"
+    },
+    {
+      "id": 5,
+      "question": "Which of the following is NOT a constitutional commission?",
+      "options": {
+        "A": "Civil Service Commission",
+        "B": "Commission on Audit",
+        "C": "Commission on Elections",
+        "D": "Department of Budget and Management"
+      },
+      "answer": "D"
+    },
+    {
+      "id": 6,
+      "question": "Government employees are expected to perform their duties with:",
+      "options": {
+        "A": "Favoritism",
+        "B": "Integrity and accountability",
+        "C": "Personal interest",
+        "D": "Political bias"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 7,
+      "question": "Security of tenure means that a government employee may only be removed:",
+      "options": {
+        "A": "At the request of a supervisor",
+        "B": "For a lawful cause and through due process",
+        "C": "After five years of service",
+        "D": "By presidential order alone"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 8,
+      "question": "Which of the following best describes a public office?",
+      "options": {
+        "A": "A private contract",
+        "B": "A business opportunity",
+        "C": "A public trust",
+        "D": "A family privilege"
+      },
+      "answer": "C"
+    },
+    {
+      "id": 9,
+      "question": "Competitive examinations in the civil service are conducted primarily to determine:",
+      "options": {
+        "A": "Political loyalty",
+        "B": "Merit and fitness",
+        "C": "Length of residency",
+        "D": "Income level"
+      },
+      "answer": "B"
+    },
+    {
+      "id": 10,
+      "question": "Which government principle promotes honesty, transparency, and accountability among public officials?",
+      "options": {
+        "A": "Public Office is a Public Trust",
+        "B": "Political Patronage",
+        "C": "Separation of Powers",
+        "D": "Local Autonomy"
+      },
+      "answer": "A"
+    }
+  ]
+}

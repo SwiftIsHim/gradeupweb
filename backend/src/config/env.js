@@ -7,6 +7,7 @@ const config = {
   env: process.env.NODE_ENV || "development",
   port: Number(process.env.PORT) || 4000,
   corsOrigin: process.env.CORS_ORIGIN || "http://localhost:3000",
+  enableConsoleLogs: process.env.ENABLE_CONSOLE_LOGS === "true",
 
   // MongoDB connection string (accounts are persisted here).
   mongoUri: process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/gradeup",

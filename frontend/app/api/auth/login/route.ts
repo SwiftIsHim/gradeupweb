@@ -1,4 +1,7 @@
+import * as Sentry from "@sentry/nextjs"
+
 import { setSessionCookies } from "@/lib/auth/cookies"
+import { reportUnexpectedError } from "@/lib/observability/reportError"
 import {
   BackendError,
   requestPasswordLogin,
@@ -29,11 +32,13 @@ export async function POST(request: Request) {
   try {
     const session = await requestPasswordLogin(email, password)
     await setSessionCookies(session.access_token, session.refresh_token)
+    Sentry.setUser({ id: session.user.id, email: session.user.email })
     return Response.json({ ok: true, user: session.user })
   } catch (error) {
     if (error instanceof BackendError) {
       return Response.json({ error: error.message }, { status: error.status })
     }
+    reportUnexpectedError(error, { route: "POST /api/auth/login" })
     return Response.json({ error: "Unexpected error." }, { status: 500 })
   }
 }

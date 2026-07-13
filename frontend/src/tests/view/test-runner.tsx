@@ -16,6 +16,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { submitAttemptClient } from "@/src/tests/data/attemptsClient"
+import type { SubmitAttemptPayload } from "@/src/tests/data/attemptsClient"
 import type {
   TestContent,
   AttemptAnswer,
@@ -39,7 +40,18 @@ function formatTime(seconds: number): string {
   return `${mm}:${ss}`
 }
 
-export function TestRunner({ test }: { test: TestContent }) {
+export function TestRunner({
+  test,
+  backHref = "/dashboard/tests",
+  backLabel = "Back to tests",
+  submitAttempt = submitAttemptClient,
+}: {
+  test: TestContent
+  /** Where "Exit" / "Back to tests" navigate — lets other sections (e.g. the diagnostic) reuse this runner. */
+  backHref?: string
+  backLabel?: string
+  submitAttempt?: (slug: string, payload: SubmitAttemptPayload) => Promise<unknown>
+}) {
   const questions = test.questions
   const total = questions.length
   const timeLimit = test.timeLimitMinutes * 60
@@ -82,7 +94,7 @@ export function TestRunner({ test }: { test: TestContent }) {
     setSaveState("saving")
 
     const durationSeconds = timeLimit - timeLeft
-    submitAttemptClient(test.slug, {
+    submitAttempt(test.slug, {
       score: graded.score,
       total: graded.total,
       durationSeconds,
@@ -90,7 +102,7 @@ export function TestRunner({ test }: { test: TestContent }) {
     })
       .then((saved) => setSaveState(saved ? "saved" : "error"))
       .catch(() => setSaveState("error"))
-  }, [grade, test.slug, timeLeft, timeLimit])
+  }, [grade, submitAttempt, test.slug, timeLeft, timeLimit])
 
   // Countdown timer; auto-submits at zero.
   useEffect(() => {
@@ -122,6 +134,8 @@ export function TestRunner({ test }: { test: TestContent }) {
         test={test}
         result={result}
         saveState={saveState}
+        backHref={backHref}
+        backLabel={backLabel}
         onRetake={() => {
           submittedRef.current = false
           setAnswers({})
@@ -145,6 +159,7 @@ export function TestRunner({ test }: { test: TestContent }) {
       timeLeft={timeLeft}
       onSubmit={finish}
       lowTime={timeLeft <= 60}
+      backHref={backHref}
     />
   )
 }
@@ -158,6 +173,7 @@ function Taking({
   timeLeft,
   onSubmit,
   lowTime,
+  backHref,
 }: {
   test: TestContent
   index: number
@@ -167,6 +183,7 @@ function Taking({
   timeLeft: number
   onSubmit: () => void
   lowTime: boolean
+  backHref: string
 }) {
   const questions = test.questions
   const total = questions.length
@@ -187,7 +204,7 @@ function Taking({
       {/* Top bar */}
       <div className="flex items-center justify-between gap-4">
         <Link
-          href="/dashboard/tests"
+          href={backHref}
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="h-4 w-4" />
@@ -350,11 +367,15 @@ function Results({
   result,
   saveState,
   onRetake,
+  backHref,
+  backLabel,
 }: {
   test: TestContent
   result: Result
   saveState: SaveState
   onRetake: () => void
+  backHref: string
+  backLabel: string
 }) {
   const passed = result.percent >= 70
 
@@ -521,7 +542,7 @@ function Results({
           Retake test
         </Button>
         <Button asChild variant="outline">
-          <Link href="/dashboard/tests">Back to tests</Link>
+          <Link href={backHref}>{backLabel}</Link>
         </Button>
       </div>
     </div>

@@ -16,6 +16,7 @@ import { Badge } from "@/components/ui/badge"
 import { Sidebar } from "@/src/dashboard/view/sidebar"
 import { LogoutButton } from "@/src/dashboard/view/logout-button"
 import { ProfileLibrary } from "@/src/dashboard/view/profile-library"
+import { ReadinessScoreValue } from "@/src/dashboard/view/readiness-score"
 import {
   profilePlaceholder,
   streakPlaceholder,
@@ -120,7 +121,9 @@ function StatsRow() {
             <span className="flex size-10 items-center justify-center rounded-full bg-muted text-green-600">
               <Icon className="size-5" />
             </span>
-            <p className="mt-3 text-3xl font-bold">{stat.value}</p>
+            <p className="mt-3 text-3xl font-bold">
+              {stat.icon === "target" ? <ReadinessScoreValue /> : stat.value}
+            </p>
             <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">
               {stat.label}
             </p>

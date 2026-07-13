@@ -1,3 +1,4 @@
+import { reportUnexpectedError } from "@/lib/observability/reportError"
 import {
   BackendError,
   requestAccountExists,
@@ -27,6 +28,7 @@ export async function POST(request: Request) {
     if (error instanceof BackendError) {
       return Response.json({ error: error.message }, { status: error.status })
     }
+    reportUnexpectedError(error, { route: "POST /api/auth/account-exists" })
     return Response.json({ error: "Unexpected error." }, { status: 500 })
   }
 }

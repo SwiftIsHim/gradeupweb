@@ -1,5 +1,6 @@
 "use client"
 
+import * as Sentry from "@sentry/nextjs"
 import { useRouter } from "next/navigation"
 import { useCallback, useMemo, useState, type FormEvent } from "react"
 
@@ -11,6 +12,7 @@ interface ApiResponse {
   exists?: boolean
   ok?: boolean
   error?: string
+  user?: { id: string; email: string }
 }
 
 // Where to send the user once they're authenticated. Returning users go
@@ -76,10 +78,11 @@ export function useLoginFormViewModel() {
 
         if (step === "password") {
           // Returning user — log in.
-          await postJson("/api/auth/login", {
+          const data = await postJson("/api/auth/login", {
             email: emailValue.trim(),
             password: passwordValue,
           })
+          if (data.user) Sentry.setUser(data.user)
           router.push(LOGIN_REDIRECT)
         } else {
           // New user — passwords must match before we create the account.
@@ -87,12 +90,13 @@ export function useLoginFormViewModel() {
             setErrorMessage("Passwords don't match. Please re-enter them.")
             return
           }
-          await postJson("/api/auth/signup", {
+          const data = await postJson("/api/auth/signup", {
             email: emailValue.trim(),
             phone: toE164(phoneValue),
             name: nameValue.trim() || undefined,
             password: passwordValue,
           })
+          if (data.user) Sentry.setUser(data.user)
           router.push(SIGNUP_REDIRECT)
         }
 

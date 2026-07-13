@@ -3,6 +3,7 @@ const authRoutes = require("./auth.routes");
 const onboardingRoutes = require("./onboarding.routes");
 const progressRoutes = require("./progress.routes");
 const testAttemptRoutes = require("./testAttempt.routes");
+const diagnosticAttemptRoutes = require("./diagnosticAttempt.routes");
 
 const router = Router();
 
@@ -14,5 +15,6 @@ router.use("/auth", authRoutes);
 router.use("/onboarding", onboardingRoutes);
 router.use("/progress", progressRoutes);
 router.use("/test-attempts", testAttemptRoutes);
+router.use("/diagnostic-attempts", diagnosticAttemptRoutes);
 
 module.exports = router;

@@ -7,6 +7,7 @@ import { cn } from "@/lib/utils"
 import { ThemeToggle } from "@/src/theme/theme-toggle"
 import { Sidebar } from "@/src/dashboard/view/sidebar"
 import { ContinueLearning } from "@/src/dashboard/view/continue-learning"
+import { DiagnosticCard } from "@/src/diagnostics/view/diagnostic-card"
 import {
   recentActivityPlaceholder,
   recommendedPlaceholder,
@@ -25,6 +26,7 @@ export function Dashboard({ header }: { header: DashboardHeader }) {
           <div className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="flex flex-col gap-6">
               <WelcomeBanner header={header} />
+              <DiagnosticCard />
               <ContinueLearning />
               <Recommended />
             </div>

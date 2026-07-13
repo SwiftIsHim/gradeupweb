@@ -1,5 +1,6 @@
 "use client"
 
+import * as Sentry from "@sentry/nextjs"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { LogOut } from "lucide-react"
@@ -16,6 +17,7 @@ export function LogoutButton() {
     } catch {
       // Even if the request fails, fall through to the login page.
     }
+    Sentry.setUser(null)
     router.push("/login")
     router.refresh()
   }

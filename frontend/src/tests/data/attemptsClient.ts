@@ -1,3 +1,5 @@
+import * as Sentry from "@sentry/nextjs"
+
 import type { TestAttempt, AttemptAnswer } from "@/src/tests/model/tests"
 
 /**
@@ -26,16 +28,27 @@ export async function submitAttemptClient(
   slug: string,
   payload: SubmitAttemptPayload,
 ): Promise<TestAttempt | null> {
-  const res = await fetch(
-    `/api/tests/${encodeURIComponent(slug)}/attempts`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(payload),
-    },
-  )
-  if (res.status === 401) return null
-  if (!res.ok) throw new Error("Could not save your attempt.")
-  const data = (await res.json()) as { attempt?: TestAttempt }
-  return data.attempt ?? null
+  Sentry.addBreadcrumb({
+    category: "test.attempt",
+    message: `Submitting attempt for ${slug}`,
+    data: { slug, score: payload.score, total: payload.total },
+  })
+
+  try {
+    const res = await fetch(
+      `/api/tests/${encodeURIComponent(slug)}/attempts`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      },
+    )
+    if (res.status === 401) return null
+    if (!res.ok) throw new Error("Could not save your attempt.")
+    const data = (await res.json()) as { attempt?: TestAttempt }
+    return data.attempt ?? null
+  } catch (error) {
+    Sentry.captureException(error, { tags: { flow: "test-attempt-submit" }, extra: { slug } })
+    throw error
+  }
 }

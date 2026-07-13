@@ -1,6 +1,7 @@
 import { cookies } from "next/headers"
 
 import { ACCESS_TOKEN_COOKIE } from "@/lib/auth/cookies"
+import { reportUnexpectedError } from "@/lib/observability/reportError"
 import { BackendError } from "@/src/login/repository/accountRepository"
 import { fetchAllProgress } from "@/src/courses/repository/coursesRepository"
 
@@ -19,6 +20,7 @@ export async function GET() {
     if (error instanceof BackendError) {
       return Response.json({ error: error.message }, { status: error.status })
     }
+    reportUnexpectedError(error, { route: "GET /api/courses/progress" })
     return Response.json({ error: "Unexpected error." }, { status: 500 })
   }
 }

@@ -1,5 +1,6 @@
 "use client"
 
+import * as Sentry from "@sentry/nextjs"
 import { useEffect } from "react"
 import { RotateCw, ServerCrash } from "lucide-react"
 
@@ -18,7 +19,7 @@ export default function DashboardError({
   reset: () => void
 }) {
   useEffect(() => {
-    console.error("Dashboard failed to load:", error)
+    Sentry.captureException(error)
   }, [error])
 
   return (

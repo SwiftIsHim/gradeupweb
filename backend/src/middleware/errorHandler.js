@@ -1,4 +1,5 @@
 const ApiError = require("../utils/ApiError");
+const logger = require("../utils/logger");
 
 function notFound(req, res, next) {
   next(new ApiError(404, `Route not found: ${req.method} ${req.originalUrl}`));
@@ -10,7 +11,7 @@ function errorHandler(err, req, res, next) {
   const isExposed = Boolean(err.statusCode); // ApiError / known status
 
   if (statusCode >= 500) {
-    console.error(err);
+    logger.error(err);
   }
 
   res.status(statusCode).json({

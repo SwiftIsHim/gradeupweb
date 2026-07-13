@@ -1,6 +1,7 @@
 import { cookies } from "next/headers"
 
 import { ACCESS_TOKEN_COOKIE } from "@/lib/auth/cookies"
+import { reportUnexpectedError } from "@/lib/observability/reportError"
 import { BackendError } from "@/src/login/repository/accountRepository"
 import { submitQuizResult } from "@/src/courses/repository/coursesRepository"
 
@@ -49,6 +50,13 @@ export async function POST(
     if (error instanceof BackendError) {
       return Response.json({ error: error.message }, { status: error.status })
     }
+    reportUnexpectedError(error, {
+      route: "POST /api/courses/[slug]/chapters/[chapter]/quiz/submit",
+      slug,
+      chapterNumber,
+      score,
+      total,
+    })
     return Response.json({ error: "Unexpected error." }, { status: 500 })
   }
 }
