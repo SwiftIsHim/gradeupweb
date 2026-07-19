@@ -1,7 +1,7 @@
 const app = require("./app");
-const config = require("./config/env");
-const { connectDb } = require("./config/db");
-const logger = require("./utils/logger");
+const config = require("./infrastructure/config/env");
+const { connectDb } = require("./infrastructure/config/db");
+const logger = require("./infrastructure/logging/logger");
 
 async function start() {
   await connectDb();
