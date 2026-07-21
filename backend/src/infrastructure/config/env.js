@@ -17,6 +17,10 @@ const config = {
   graphqlEndpoint: process.env.GRAPHQL_ENDPOINT || "",
 
   accessTokenTtlSeconds: Number(process.env.ACCESS_TOKEN_TTL_SECONDS) || 900,
+
+  // Resend (email). Sends no-op + log when the key is unset (local dev).
+  resendApiKey: process.env.RESEND_API_KEY || "",
+  emailFrom: process.env.EMAIL_FROM || "Grade Up <onboarding@resend.dev>",
 };
 
 module.exports = config;

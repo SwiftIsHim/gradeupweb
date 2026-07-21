@@ -30,6 +30,11 @@
  * @typedef {Object} TokenService
  * @property {(user: import("./entities/User")) => { access_token: string, refresh_token: string, expires_in: number }} issue
  * @property {(token: string) => string|null} decodeEmail
+ *
+ * @typedef {Object} EmailSender
+ * @property {(message: {to: string, subject: string, html: string, text: string}) => Promise<void>} send
+ *   Never rejects — failures are logged and swallowed by the infrastructure
+ *   implementation, so use cases can fire-and-forget without try/catch.
  */
 
 module.exports = {};
