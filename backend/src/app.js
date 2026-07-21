@@ -2,9 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const config = require("./config/env");
-const routes = require("./routes");
-const { notFound, errorHandler } = require("./middleware/errorHandler");
+const config = require("./infrastructure/config/env");
+const { buildRoutes } = require("./composition/container");
+const { notFound, errorHandler } = require("./interfaces/http/middleware/errorHandler");
 
 const app = express();
 
@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
 });
 
 // All API routes (health, /auth/*)
-app.use("/", routes);
+app.use("/", buildRoutes());
 
 // 404 + central error handler (must be last)
 app.use(notFound);
