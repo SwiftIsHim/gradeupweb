@@ -13,6 +13,7 @@ const mongoProgressRepository = require("../infrastructure/persistence/mongoose/
 const { makeMongoAttemptRepository } = require("../infrastructure/persistence/mongoose/repositories/mongoAttemptRepository");
 const bcryptPasswordHasher = require("../infrastructure/security/bcryptPasswordHasher");
 const stubTokenService = require("../infrastructure/security/stubTokenService");
+const resendEmailSender = require("../infrastructure/email/resendEmailSender");
 
 const makeCheckAccountExists = require("../application/use-cases/auth/checkAccountExists");
 const makeLogin = require("../application/use-cases/auth/login");
@@ -50,11 +51,12 @@ function buildRoutes() {
   const progressRepository = mongoProgressRepository;
   const passwordHasher = bcryptPasswordHasher;
   const tokenService = stubTokenService;
+  const emailSender = resendEmailSender;
 
   const authController = makeAuthController({
     checkAccountExists: makeCheckAccountExists({ userRepository }),
     login: makeLogin({ userRepository, passwordHasher, tokenService }),
-    signup: makeSignup({ userRepository, passwordHasher, tokenService }),
+    signup: makeSignup({ userRepository, passwordHasher, tokenService, emailSender }),
   });
 
   const onboardingController = makeOnboardingController({
