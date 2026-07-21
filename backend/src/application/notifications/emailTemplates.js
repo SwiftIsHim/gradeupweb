@@ -10,4 +10,14 @@ function welcomeEmail(user) {
   };
 }
 
-module.exports = { welcomeEmail };
+function passwordResetEmail(user, resetUrl) {
+  const name = user.name || "there";
+  return {
+    to: user.email,
+    subject: "Reset your Grade Up password",
+    html: `<p>Hi ${name},</p><p>Click the link below to reset your password. This link expires in an hour and can only be used once.</p><p><a href="${resetUrl}">${resetUrl}</a></p><p>If you didn't request this, you can safely ignore this email.</p>`,
+    text: `Hi ${name},\n\nReset your password: ${resetUrl}\n\nThis link expires in an hour and can only be used once. If you didn't request this, you can safely ignore this email.`,
+  };
+}
+
+module.exports = { welcomeEmail, passwordResetEmail };

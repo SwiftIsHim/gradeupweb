@@ -9,6 +9,10 @@ function makeAuthRoutes(controller) {
   router.post("/login", controller.login);
   // Signup completion (phone OTP send/verify intentionally omitted)
   router.post("/signup", controller.signup);
+  // Forgot password — request a reset link by email
+  router.post("/forgot-password", controller.forgotPassword);
+  // Reset password — complete with the emailed token + a new password
+  router.post("/reset-password", controller.resetPassword);
 
   return router;
 }

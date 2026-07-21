@@ -1,3 +1,4 @@
+const crypto = require("crypto");
 const { ValidationError } = require("../errors");
 const { assertValidEmail } = require("../valueObjects/Email");
 
@@ -5,7 +6,17 @@ const { assertValidEmail } = require("../valueObjects/Email");
 const E164_RE = /^\+[1-9]\d{6,14}$/;
 
 class User {
-  constructor({ id, email, phone, name, organization, loginHint, passwordHash }) {
+  constructor({
+    id,
+    email,
+    phone,
+    name,
+    organization,
+    loginHint,
+    passwordHash,
+    passwordResetTokenHash,
+    passwordResetTokenExpiresAt,
+  }) {
     this.id = id;
     this.email = email;
     this.phone = phone;
@@ -14,6 +25,9 @@ class User {
     this.loginHint = loginHint || "Use password";
     // Only populated when the repository was asked to include it (login flow).
     this.passwordHash = passwordHash;
+    // Only populated when the repository was asked to include it (reset-password flow).
+    this.passwordResetTokenHash = passwordResetTokenHash ?? null;
+    this.passwordResetTokenExpiresAt = passwordResetTokenExpiresAt ?? null;
   }
 
   /** Build a new (not-yet-persisted) user. `passwordHash` must already be hashed — see PasswordHasher port. */
@@ -44,6 +58,26 @@ class User {
       throw new ValidationError("Password hash was not loaded for this user.");
     }
     return passwordHasher.verify(plain, this.passwordHash);
+  }
+
+  /** Generate a password-reset token. Only the hash is ever persisted; the raw token is emailed once. */
+  static generateResetToken() {
+    const rawToken = crypto.randomBytes(32).toString("hex");
+    return { rawToken, tokenHash: User.hashResetToken(rawToken) };
+  }
+
+  static hashResetToken(rawToken) {
+    return crypto.createHash("sha256").update(String(rawToken)).digest("hex");
+  }
+
+  /** True if `tokenHash` matches this user's stored reset token and it hasn't expired. */
+  isResetTokenValid(tokenHash) {
+    return Boolean(
+      this.passwordResetTokenHash &&
+        this.passwordResetTokenHash === tokenHash &&
+        this.passwordResetTokenExpiresAt &&
+        this.passwordResetTokenExpiresAt.getTime() > Date.now()
+    );
   }
 
   toPublic() {

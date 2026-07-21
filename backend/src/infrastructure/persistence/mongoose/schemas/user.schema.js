@@ -16,6 +16,9 @@ const userSchema = new mongoose.Schema(
     // Stored as a bcrypt hash, never in plain text. Excluded from queries by default.
     passwordHash: { type: String, required: true, select: false },
     loginHint: { type: String, default: "Use password" },
+    // sha256 of the raw reset token emailed to the user — never the raw token itself.
+    passwordResetTokenHash: { type: String, default: null, select: false, index: true },
+    passwordResetTokenExpiresAt: { type: Date, default: null },
   },
   { timestamps: true }
 );

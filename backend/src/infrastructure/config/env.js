@@ -21,6 +21,11 @@ const config = {
   // Resend (email). Sends no-op + log when the key is unset (local dev).
   resendApiKey: process.env.RESEND_API_KEY || "",
   emailFrom: process.env.EMAIL_FROM || "Grade Up <onboarding@resend.dev>",
+
+  // Frontend origin — used to build links inside emails (e.g. password reset).
+  frontendUrl: process.env.FRONTEND_URL || "http://localhost:3000",
+
+  passwordResetTokenTtlSeconds: Number(process.env.PASSWORD_RESET_TOKEN_TTL_SECONDS) || 3600,
 };
 
 module.exports = config;
