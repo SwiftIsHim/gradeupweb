@@ -14,10 +14,13 @@ const { makeMongoAttemptRepository } = require("../infrastructure/persistence/mo
 const bcryptPasswordHasher = require("../infrastructure/security/bcryptPasswordHasher");
 const stubTokenService = require("../infrastructure/security/stubTokenService");
 const resendEmailSender = require("../infrastructure/email/resendEmailSender");
+const config = require("../infrastructure/config/env");
 
 const makeCheckAccountExists = require("../application/use-cases/auth/checkAccountExists");
 const makeLogin = require("../application/use-cases/auth/login");
 const makeSignup = require("../application/use-cases/auth/signup");
+const makeRequestPasswordReset = require("../application/use-cases/auth/requestPasswordReset");
+const makeResetPassword = require("../application/use-cases/auth/resetPassword");
 const makeSaveOnboarding = require("../application/use-cases/onboarding/saveOnboarding");
 const makeGetOnboarding = require("../application/use-cases/onboarding/getOnboarding");
 const makeListProgress = require("../application/use-cases/progress/listProgress");
@@ -57,6 +60,13 @@ function buildRoutes() {
     checkAccountExists: makeCheckAccountExists({ userRepository }),
     login: makeLogin({ userRepository, passwordHasher, tokenService }),
     signup: makeSignup({ userRepository, passwordHasher, tokenService, emailSender }),
+    requestPasswordReset: makeRequestPasswordReset({
+      userRepository,
+      emailSender,
+      frontendUrl: config.frontendUrl,
+      tokenTtlSeconds: config.passwordResetTokenTtlSeconds,
+    }),
+    resetPassword: makeResetPassword({ userRepository, passwordHasher }),
   });
 
   const onboardingController = makeOnboardingController({

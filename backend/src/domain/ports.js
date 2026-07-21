@@ -7,6 +7,9 @@
  * @property {(email: string) => Promise<import("./entities/User")|null>} findByEmail
  * @property {(email: string) => Promise<import("./entities/User")|null>} findByEmailWithPasswordHash
  * @property {(user: import("./entities/User")) => Promise<import("./entities/User")>} create
+ * @property {(tokenHash: string) => Promise<import("./entities/User")|null>} findByResetTokenHash
+ * @property {(userId: string, tokenHash: string, expiresAt: Date) => Promise<void>} setResetToken
+ * @property {(userId: string, passwordHash: string) => Promise<import("./entities/User")>} updatePassword
  *
  * @typedef {Object} OnboardingRepository
  * @property {(userId: string) => Promise<import("./entities/OnboardingProfile")|null>} findByUserId
