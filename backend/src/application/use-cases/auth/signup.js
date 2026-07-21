@@ -1,5 +1,6 @@
 const { ValidationError, ConflictError } = require("../../../domain/errors");
 const User = require("../../../domain/entities/User");
+const { welcomeEmail } = require("../../notifications/emailTemplates");
 const issueSession = require("./issueSession");
 
 /**
@@ -7,9 +8,10 @@ const issueSession = require("./issueSession");
  *   userRepository: import("../../../domain/ports").UserRepository,
  *   passwordHasher: import("../../../domain/ports").PasswordHasher,
  *   tokenService: import("../../../domain/ports").TokenService,
+ *   emailSender: import("../../../domain/ports").EmailSender,
  * }} deps
  */
-function makeSignup({ userRepository, passwordHasher, tokenService }) {
+function makeSignup({ userRepository, passwordHasher, tokenService, emailSender }) {
   /** Signup completion — create account + auto-login. (OTP step omitted.) */
   return async function signup(input) {
     if (!input.password) {
@@ -36,6 +38,9 @@ function makeSignup({ userRepository, passwordHasher, tokenService }) {
 
     // The repository translates the unique-index race (concurrent signup) into ConflictError too.
     const created = await userRepository.create(user);
+    // Not awaited: EmailSender.send never rejects, and we don't want Resend's
+    // latency to delay the signup response.
+    emailSender.send(welcomeEmail(created));
     return issueSession(created, tokenService);
   };
 }
