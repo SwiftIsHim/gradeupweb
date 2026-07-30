@@ -18,7 +18,10 @@ const logger = {
   log: createLoggerMethod("log"),
   info: createLoggerMethod("info"),
   warn: createLoggerMethod("warn"),
-  error: createLoggerMethod("error"),
+  // Errors always print — they're the only signal we have that something
+  // (e.g. a Resend send) failed in production, where console logs are
+  // otherwise silenced by default.
+  error: (...args) => console.error(...args),
   debug: createLoggerMethod("debug"),
 };
 
