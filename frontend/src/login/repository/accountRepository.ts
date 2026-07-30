@@ -89,3 +89,16 @@ export function requestPasswordLogin(
 export function requestSignup(input: SignupInput): Promise<Session> {
   return post<Session>("/auth/signup", input)
 }
+
+/** Request a password-reset email. Always resolves the same way, whether or not the account exists. */
+export function requestPasswordResetEmail(email: string): Promise<{ ok: true }> {
+  return post<{ ok: true }>("/auth/forgot-password", { email })
+}
+
+/** Complete a password reset with the token from the emailed link. */
+export function requestPasswordReset(
+  token: string,
+  password: string,
+): Promise<{ ok: true }> {
+  return post<{ ok: true }>("/auth/reset-password", { token, password })
+}
