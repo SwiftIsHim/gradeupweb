@@ -3,6 +3,7 @@ import type { Metadata } from "next"
 import { Profile } from "@/src/dashboard/view/profile"
 import { toDashboardHeader } from "@/src/dashboard/model/dashboard"
 import { getOnboardingProfile } from "@/src/dashboard/data/getOnboardingProfile"
+import { getCurrentUser } from "@/src/dashboard/data/getCurrentUser"
 
 export const metadata: Metadata = {
   title: "Profile — Grade Up",
@@ -10,6 +11,6 @@ export const metadata: Metadata = {
 }
 
 export default async function ProfilePage() {
-  const profile = await getOnboardingProfile()
-  return <Profile header={toDashboardHeader(profile)} />
+  const [profile, user] = await Promise.all([getOnboardingProfile(), getCurrentUser()])
+  return <Profile header={toDashboardHeader(profile)} username={user.username} />
 }

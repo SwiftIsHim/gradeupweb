@@ -36,6 +36,16 @@ function makeSignup({ userRepository, passwordHasher, tokenService, emailSender 
       throw new ConflictError("An account with this email already exists.");
     }
 
+    const usernameBase = User.slugifyUsername(input.name || user.email.split("@")[0]);
+    let candidate = usernameBase;
+    for (let attempt = 1; attempt <= 5; attempt += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      const taken = await userRepository.findByUsername(candidate);
+      if (!taken) break;
+      candidate = `${usernameBase}${attempt + 1}`.slice(0, 20);
+    }
+    user.assignUsername(candidate);
+
     // The repository translates the unique-index race (concurrent signup) into ConflictError too.
     const created = await userRepository.create(user);
     // Not awaited: EmailSender.send never rejects, and we don't want Resend's

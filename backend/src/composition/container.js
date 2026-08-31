@@ -10,6 +10,12 @@
 const mongoUserRepository = require("../infrastructure/persistence/mongoose/repositories/mongoUserRepository");
 const mongoOnboardingRepository = require("../infrastructure/persistence/mongoose/repositories/mongoOnboardingRepository");
 const mongoProgressRepository = require("../infrastructure/persistence/mongoose/repositories/mongoProgressRepository");
+const mongoFriendshipRepository = require("../infrastructure/persistence/mongoose/repositories/mongoFriendshipRepository");
+const mongoCommunityRepository = require("../infrastructure/persistence/mongoose/repositories/mongoCommunityRepository");
+const mongoMembershipRepository = require("../infrastructure/persistence/mongoose/repositories/mongoMembershipRepository");
+const mongoPostRepository = require("../infrastructure/persistence/mongoose/repositories/mongoPostRepository");
+const mongoReactionRepository = require("../infrastructure/persistence/mongoose/repositories/mongoReactionRepository");
+const mongoCommentRepository = require("../infrastructure/persistence/mongoose/repositories/mongoCommentRepository");
 const { makeMongoAttemptRepository } = require("../infrastructure/persistence/mongoose/repositories/mongoAttemptRepository");
 const bcryptPasswordHasher = require("../infrastructure/security/bcryptPasswordHasher");
 const stubTokenService = require("../infrastructure/security/stubTokenService");
@@ -30,11 +36,38 @@ const makeSaveQuizResult = require("../application/use-cases/progress/saveQuizRe
 const makeRecordAttempt = require("../application/use-cases/attempts/recordAttempt");
 const makeListAttempts = require("../application/use-cases/attempts/listAttempts");
 const makeListAttemptsForSlug = require("../application/use-cases/attempts/listAttemptsForSlug");
+const makeUpdateUsername = require("../application/use-cases/users/updateUsername");
+const makeGetStudyStreak = require("../application/use-cases/peers/getStudyStreak");
+const makeSearchUsers = require("../application/use-cases/peers/searchUsers");
+const makeSendFriendRequest = require("../application/use-cases/peers/sendFriendRequest");
+const makeAcceptFriendRequest = require("../application/use-cases/peers/acceptFriendRequest");
+const makeDeclineFriendRequest = require("../application/use-cases/peers/declineFriendRequest");
+const makeCancelFriendRequest = require("../application/use-cases/peers/cancelFriendRequest");
+const makeListPeers = require("../application/use-cases/peers/listPeers");
+const makeListFriendRequests = require("../application/use-cases/peers/listFriendRequests");
+const makeCreateCommunity = require("../application/use-cases/communities/createCommunity");
+const makeDiscoverCommunities = require("../application/use-cases/communities/discoverCommunities");
+const makeListMyCommunities = require("../application/use-cases/communities/listMyCommunities");
+const makeJoinCommunity = require("../application/use-cases/communities/joinCommunity");
+const makeLeaveCommunity = require("../application/use-cases/communities/leaveCommunity");
+const makeRemoveMember = require("../application/use-cases/communities/removeMember");
+const makeSuggestCommunities = require("../application/use-cases/communities/suggestCommunities");
+const makeGetFeed = require("../application/use-cases/feed/getFeed");
+const makeCreatePost = require("../application/use-cases/posts/createPost");
+const makeDeletePost = require("../application/use-cases/posts/deletePost");
+const makeReactToPost = require("../application/use-cases/posts/reactToPost");
+const makeListComments = require("../application/use-cases/posts/listComments");
+const makeAddComment = require("../application/use-cases/posts/addComment");
 
 const makeAuthController = require("../interfaces/http/controllers/auth.controller");
 const makeOnboardingController = require("../interfaces/http/controllers/onboarding.controller");
 const makeProgressController = require("../interfaces/http/controllers/progress.controller");
 const makeAttemptController = require("../interfaces/http/controllers/attempt.controller");
+const makePeersController = require("../interfaces/http/controllers/peers.controller");
+const makeUserController = require("../interfaces/http/controllers/user.controller");
+const makeCommunitiesController = require("../interfaces/http/controllers/communities.controller");
+const makeFeedController = require("../interfaces/http/controllers/feed.controller");
+const makePostsController = require("../interfaces/http/controllers/posts.controller");
 const makeRequireAuth = require("../interfaces/http/middleware/requireAuth");
 const makeRoutes = require("../interfaces/http/routes");
 
@@ -81,6 +114,59 @@ function buildRoutes() {
     saveQuizResult: makeSaveQuizResult({ progressRepository }),
   });
 
+  const friendshipRepository = mongoFriendshipRepository;
+  const testAttemptRepository = makeMongoAttemptRepository("test");
+  const diagnosticAttemptRepository = makeMongoAttemptRepository("diagnostic");
+
+  const getStudyStreak = makeGetStudyStreak({
+    progressRepository,
+    testAttemptRepository,
+    diagnosticAttemptRepository,
+  });
+
+  const peersController = makePeersController({
+    searchUsers: makeSearchUsers({ userRepository, friendshipRepository }),
+    listPeers: makeListPeers({ userRepository, friendshipRepository, getStudyStreak }),
+    listFriendRequests: makeListFriendRequests({ userRepository, friendshipRepository }),
+    sendFriendRequest: makeSendFriendRequest({ userRepository, friendshipRepository }),
+    acceptFriendRequest: makeAcceptFriendRequest({ friendshipRepository }),
+    declineFriendRequest: makeDeclineFriendRequest({ friendshipRepository }),
+    cancelFriendRequest: makeCancelFriendRequest({ friendshipRepository }),
+  });
+
+  const userController = makeUserController({
+    updateUsername: makeUpdateUsername({ userRepository }),
+  });
+
+  const communityRepository = mongoCommunityRepository;
+  const membershipRepository = mongoMembershipRepository;
+
+  const communitiesController = makeCommunitiesController({
+    discoverCommunities: makeDiscoverCommunities({ communityRepository, membershipRepository }),
+    listMyCommunities: makeListMyCommunities({ communityRepository, membershipRepository }),
+    suggestCommunities: makeSuggestCommunities({ communityRepository, membershipRepository, onboardingRepository }),
+    createCommunity: makeCreateCommunity({ communityRepository, membershipRepository }),
+    joinCommunity: makeJoinCommunity({ communityRepository, membershipRepository }),
+    leaveCommunity: makeLeaveCommunity({ communityRepository, membershipRepository }),
+    removeMember: makeRemoveMember({ communityRepository, membershipRepository }),
+  });
+
+  const postRepository = mongoPostRepository;
+  const reactionRepository = mongoReactionRepository;
+  const commentRepository = mongoCommentRepository;
+
+  const feedController = makeFeedController({
+    getFeed: makeGetFeed({ postRepository, membershipRepository, userRepository, reactionRepository }),
+  });
+
+  const postsController = makePostsController({
+    createPost: makeCreatePost({ postRepository, membershipRepository }),
+    deletePost: makeDeletePost({ postRepository, membershipRepository, reactionRepository, commentRepository }),
+    reactToPost: makeReactToPost({ postRepository, reactionRepository }),
+    listComments: makeListComments({ commentRepository, userRepository }),
+    addComment: makeAddComment({ postRepository, commentRepository }),
+  });
+
   const requireAuth = makeRequireAuth({ tokenService, userRepository });
 
   return makeRoutes({
@@ -89,6 +175,11 @@ function buildRoutes() {
     progressController,
     testAttemptController: buildAttemptController("test"),
     diagnosticAttemptController: buildAttemptController("diagnostic"),
+    peersController,
+    userController,
+    communitiesController,
+    feedController,
+    postsController,
     requireAuth,
   });
 }

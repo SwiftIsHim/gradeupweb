@@ -10,6 +10,7 @@ function toEntity(doc, { withPasswordHash = false, withResetToken = false } = {}
     phone: doc.phone,
     name: doc.name,
     organization: doc.organization,
+    username: doc.username,
     loginHint: doc.loginHint,
     passwordHash: withPasswordHash ? doc.passwordHash : undefined,
     passwordResetTokenHash: withResetToken ? doc.passwordResetTokenHash : undefined,
@@ -37,14 +38,50 @@ const mongoUserRepository = {
         phone: user.phone,
         name: user.name,
         organization: user.organization,
+        username: user.username,
         passwordHash: user.passwordHash,
         loginHint: user.loginHint,
       });
       return toEntity(doc);
     } catch (err) {
-      // Unique index race: another request created the same email concurrently.
+      // Unique index race: another request created the same email/username concurrently.
       if (err && err.code === 11000) {
-        throw new ConflictError("An account with this email already exists.");
+        throw new ConflictError("An account with this email or username already exists.");
+      }
+      throw err;
+    }
+  },
+
+  async findByUsername(username) {
+    const doc = await UserModel.findOne({ username }).lean();
+    return toEntity(doc);
+  },
+
+  async findByIds(ids) {
+    const docs = await UserModel.find({ _id: { $in: ids } }).lean();
+    return docs.map((doc) => toEntity(doc));
+  },
+
+  async searchByUsernameOrName(query, { excludeId, limit = 20 } = {}) {
+    const escaped = String(query).trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (!escaped) return [];
+    const regex = new RegExp(escaped, "i");
+    const docs = await UserModel.find({
+      _id: { $ne: excludeId },
+      $or: [{ username: regex }, { name: regex }],
+    })
+      .limit(limit)
+      .lean();
+    return docs.map((doc) => toEntity(doc));
+  },
+
+  async updateUsername(userId, username) {
+    try {
+      const doc = await UserModel.findOneAndUpdate({ _id: userId }, { username }, { new: true }).lean();
+      return toEntity(doc);
+    } catch (err) {
+      if (err && err.code === 11000) {
+        throw new ConflictError("That username is already taken.");
       }
       throw err;
     }
