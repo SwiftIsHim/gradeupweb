@@ -10,6 +10,8 @@
  * @property {(tokenHash: string) => Promise<import("./entities/User")|null>} findByResetTokenHash
  * @property {(userId: string, tokenHash: string, expiresAt: Date) => Promise<void>} setResetToken
  * @property {(userId: string, passwordHash: string) => Promise<import("./entities/User")>} updatePassword
+ * @property {(username: string) => Promise<import("./entities/User")|null>} findByUsername
+ * @property {(userId: string, username: string) => Promise<import("./entities/User")>} updateUsername
  *
  * @typedef {Object} OnboardingRepository
  * @property {(userId: string) => Promise<import("./entities/OnboardingProfile")|null>} findByUserId

@@ -30,11 +30,13 @@ const makeSaveQuizResult = require("../application/use-cases/progress/saveQuizRe
 const makeRecordAttempt = require("../application/use-cases/attempts/recordAttempt");
 const makeListAttempts = require("../application/use-cases/attempts/listAttempts");
 const makeListAttemptsForSlug = require("../application/use-cases/attempts/listAttemptsForSlug");
+const makeUpdateUsername = require("../application/use-cases/users/updateUsername");
 
 const makeAuthController = require("../interfaces/http/controllers/auth.controller");
 const makeOnboardingController = require("../interfaces/http/controllers/onboarding.controller");
 const makeProgressController = require("../interfaces/http/controllers/progress.controller");
 const makeAttemptController = require("../interfaces/http/controllers/attempt.controller");
+const makeUserController = require("../interfaces/http/controllers/user.controller");
 const makeRequireAuth = require("../interfaces/http/middleware/requireAuth");
 const makeRoutes = require("../interfaces/http/routes");
 
@@ -81,6 +83,10 @@ function buildRoutes() {
     saveQuizResult: makeSaveQuizResult({ progressRepository }),
   });
 
+  const userController = makeUserController({
+    updateUsername: makeUpdateUsername({ userRepository }),
+  });
+
   const requireAuth = makeRequireAuth({ tokenService, userRepository });
 
   return makeRoutes({
@@ -89,6 +95,7 @@ function buildRoutes() {
     progressController,
     testAttemptController: buildAttemptController("test"),
     diagnosticAttemptController: buildAttemptController("diagnostic"),
+    userController,
     requireAuth,
   });
 }

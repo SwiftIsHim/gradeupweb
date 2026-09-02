@@ -11,6 +11,7 @@ const { ValidationError, ConflictError } = require("../../src/domain/errors");
 // rely on entity methods like toPublic().
 function makeFakeUserRepository() {
   const byEmail = new Map();
+  const byUsername = new Map();
   return {
     async findByEmail(email) {
       return byEmail.get(email) || null;
@@ -18,9 +19,13 @@ function makeFakeUserRepository() {
     async findByEmailWithPasswordHash(email) {
       return byEmail.get(email) || null;
     },
+    async findByUsername(username) {
+      return byUsername.get(username) || null;
+    },
     async create(user) {
       const stored = new User({ ...user, id: `id-${byEmail.size + 1}` });
       byEmail.set(user.email, stored);
+      byUsername.set(user.username, stored);
       return stored;
     },
   };
