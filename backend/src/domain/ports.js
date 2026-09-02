@@ -39,6 +39,28 @@
  * @property {(userId: string) => Promise<import("./entities/Membership")[]>} listByUser
  * @property {(communityId: string) => Promise<import("./entities/Membership")[]>} listByCommunity
  *
+ * @typedef {Object} PostRepository
+ * @property {(post: import("./entities/Post")) => Promise<import("./entities/Post")>} create
+ * @property {(id: string) => Promise<import("./entities/Post")|null>} findById
+ * @property {(authorId: string) => Promise<import("./entities/Post")|null>} findLatestByAuthor
+ * @property {(opts: {communityId: string|null, joinedCommunityIds: string[], cursor: string|null, limit: number}) => Promise<{items: import("./entities/Post")[], nextCursor: string|null}>} listFeed
+ * @property {(id: string) => Promise<void>} deleteById
+ * @property {(postId: string, delta: number) => Promise<void>} incrementReactionCount
+ * @property {(postId: string, delta: number) => Promise<void>} incrementCommentCount
+ *
+ * @typedef {Object} ReactionRepository
+ * @property {(reaction: import("./entities/Reaction")) => Promise<import("./entities/Reaction")>} create
+ * @property {(postId: string, userId: string) => Promise<import("./entities/Reaction")|null>} findOne
+ * @property {(postId: string, userId: string) => Promise<void>} deleteOne
+ * @property {(postId: string, userId: string, type: string) => Promise<import("./entities/Reaction")>} updateType
+ * @property {(postIds: string[], userId: string) => Promise<import("./entities/Reaction")[]>} listByPostIdsForUser
+ * @property {(postId: string) => Promise<void>} deleteByPostId
+ *
+ * @typedef {Object} CommentRepository
+ * @property {(comment: import("./entities/Comment")) => Promise<import("./entities/Comment")>} create
+ * @property {(postId: string) => Promise<import("./entities/Comment")[]>} listByPost
+ * @property {(postId: string) => Promise<void>} deleteByPostId
+ *
  * @typedef {Object} OnboardingRepository
  * @property {(userId: string) => Promise<import("./entities/OnboardingProfile")|null>} findByUserId
  * @property {(profile: import("./entities/OnboardingProfile")) => Promise<import("./entities/OnboardingProfile")>} upsert

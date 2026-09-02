@@ -13,6 +13,9 @@ const mongoProgressRepository = require("../infrastructure/persistence/mongoose/
 const mongoFriendshipRepository = require("../infrastructure/persistence/mongoose/repositories/mongoFriendshipRepository");
 const mongoCommunityRepository = require("../infrastructure/persistence/mongoose/repositories/mongoCommunityRepository");
 const mongoMembershipRepository = require("../infrastructure/persistence/mongoose/repositories/mongoMembershipRepository");
+const mongoPostRepository = require("../infrastructure/persistence/mongoose/repositories/mongoPostRepository");
+const mongoReactionRepository = require("../infrastructure/persistence/mongoose/repositories/mongoReactionRepository");
+const mongoCommentRepository = require("../infrastructure/persistence/mongoose/repositories/mongoCommentRepository");
 const { makeMongoAttemptRepository } = require("../infrastructure/persistence/mongoose/repositories/mongoAttemptRepository");
 const bcryptPasswordHasher = require("../infrastructure/security/bcryptPasswordHasher");
 const stubTokenService = require("../infrastructure/security/stubTokenService");
@@ -49,6 +52,12 @@ const makeJoinCommunity = require("../application/use-cases/communities/joinComm
 const makeLeaveCommunity = require("../application/use-cases/communities/leaveCommunity");
 const makeRemoveMember = require("../application/use-cases/communities/removeMember");
 const makeSuggestCommunities = require("../application/use-cases/communities/suggestCommunities");
+const makeGetFeed = require("../application/use-cases/feed/getFeed");
+const makeCreatePost = require("../application/use-cases/posts/createPost");
+const makeDeletePost = require("../application/use-cases/posts/deletePost");
+const makeReactToPost = require("../application/use-cases/posts/reactToPost");
+const makeListComments = require("../application/use-cases/posts/listComments");
+const makeAddComment = require("../application/use-cases/posts/addComment");
 
 const makeAuthController = require("../interfaces/http/controllers/auth.controller");
 const makeOnboardingController = require("../interfaces/http/controllers/onboarding.controller");
@@ -57,6 +66,8 @@ const makeAttemptController = require("../interfaces/http/controllers/attempt.co
 const makePeersController = require("../interfaces/http/controllers/peers.controller");
 const makeUserController = require("../interfaces/http/controllers/user.controller");
 const makeCommunitiesController = require("../interfaces/http/controllers/communities.controller");
+const makeFeedController = require("../interfaces/http/controllers/feed.controller");
+const makePostsController = require("../interfaces/http/controllers/posts.controller");
 const makeRequireAuth = require("../interfaces/http/middleware/requireAuth");
 const makeRoutes = require("../interfaces/http/routes");
 
@@ -140,6 +151,22 @@ function buildRoutes() {
     removeMember: makeRemoveMember({ communityRepository, membershipRepository }),
   });
 
+  const postRepository = mongoPostRepository;
+  const reactionRepository = mongoReactionRepository;
+  const commentRepository = mongoCommentRepository;
+
+  const feedController = makeFeedController({
+    getFeed: makeGetFeed({ postRepository, membershipRepository, userRepository, reactionRepository }),
+  });
+
+  const postsController = makePostsController({
+    createPost: makeCreatePost({ postRepository, membershipRepository }),
+    deletePost: makeDeletePost({ postRepository, membershipRepository, reactionRepository, commentRepository }),
+    reactToPost: makeReactToPost({ postRepository, reactionRepository }),
+    listComments: makeListComments({ commentRepository, userRepository }),
+    addComment: makeAddComment({ postRepository, commentRepository }),
+  });
+
   const requireAuth = makeRequireAuth({ tokenService, userRepository });
 
   return makeRoutes({
@@ -151,6 +178,8 @@ function buildRoutes() {
     userController,
     peersController,
     communitiesController,
+    feedController,
+    postsController,
     requireAuth,
   });
 }
