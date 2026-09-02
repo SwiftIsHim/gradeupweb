@@ -24,6 +24,21 @@
  * @property {(id: string) => Promise<import("./entities/Friendship")>} accept
  * @property {(id: string) => Promise<void>} deleteById
  *
+ * @typedef {Object} CommunityRepository
+ * @property {(community: import("./entities/Community")) => Promise<import("./entities/Community")>} create
+ * @property {(id: string) => Promise<import("./entities/Community")|null>} findById
+ * @property {(ids: string[]) => Promise<import("./entities/Community")[]>} listByIds
+ * @property {(opts: {q?: string, limit?: number}) => Promise<import("./entities/Community")[]>} search
+ * @property {(opts: {subjects: string[], examTag: string|null, excludeIds: string[], limit?: number}) => Promise<import("./entities/Community")[]>} findRecommended
+ * @property {(id: string, delta: number) => Promise<void>} incrementMemberCount
+ *
+ * @typedef {Object} MembershipRepository
+ * @property {(membership: import("./entities/Membership")) => Promise<import("./entities/Membership")>} create
+ * @property {(userId: string, communityId: string) => Promise<import("./entities/Membership")|null>} findOne
+ * @property {(userId: string, communityId: string) => Promise<void>} deleteOne
+ * @property {(userId: string) => Promise<import("./entities/Membership")[]>} listByUser
+ * @property {(communityId: string) => Promise<import("./entities/Membership")[]>} listByCommunity
+ *
  * @typedef {Object} OnboardingRepository
  * @property {(userId: string) => Promise<import("./entities/OnboardingProfile")|null>} findByUserId
  * @property {(profile: import("./entities/OnboardingProfile")) => Promise<import("./entities/OnboardingProfile")>} upsert

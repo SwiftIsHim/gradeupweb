@@ -11,6 +11,8 @@ const mongoUserRepository = require("../infrastructure/persistence/mongoose/repo
 const mongoOnboardingRepository = require("../infrastructure/persistence/mongoose/repositories/mongoOnboardingRepository");
 const mongoProgressRepository = require("../infrastructure/persistence/mongoose/repositories/mongoProgressRepository");
 const mongoFriendshipRepository = require("../infrastructure/persistence/mongoose/repositories/mongoFriendshipRepository");
+const mongoCommunityRepository = require("../infrastructure/persistence/mongoose/repositories/mongoCommunityRepository");
+const mongoMembershipRepository = require("../infrastructure/persistence/mongoose/repositories/mongoMembershipRepository");
 const { makeMongoAttemptRepository } = require("../infrastructure/persistence/mongoose/repositories/mongoAttemptRepository");
 const bcryptPasswordHasher = require("../infrastructure/security/bcryptPasswordHasher");
 const stubTokenService = require("../infrastructure/security/stubTokenService");
@@ -40,6 +42,13 @@ const makeDeclineFriendRequest = require("../application/use-cases/peers/decline
 const makeCancelFriendRequest = require("../application/use-cases/peers/cancelFriendRequest");
 const makeListPeers = require("../application/use-cases/peers/listPeers");
 const makeListFriendRequests = require("../application/use-cases/peers/listFriendRequests");
+const makeCreateCommunity = require("../application/use-cases/communities/createCommunity");
+const makeDiscoverCommunities = require("../application/use-cases/communities/discoverCommunities");
+const makeListMyCommunities = require("../application/use-cases/communities/listMyCommunities");
+const makeJoinCommunity = require("../application/use-cases/communities/joinCommunity");
+const makeLeaveCommunity = require("../application/use-cases/communities/leaveCommunity");
+const makeRemoveMember = require("../application/use-cases/communities/removeMember");
+const makeSuggestCommunities = require("../application/use-cases/communities/suggestCommunities");
 
 const makeAuthController = require("../interfaces/http/controllers/auth.controller");
 const makeOnboardingController = require("../interfaces/http/controllers/onboarding.controller");
@@ -47,6 +56,7 @@ const makeProgressController = require("../interfaces/http/controllers/progress.
 const makeAttemptController = require("../interfaces/http/controllers/attempt.controller");
 const makePeersController = require("../interfaces/http/controllers/peers.controller");
 const makeUserController = require("../interfaces/http/controllers/user.controller");
+const makeCommunitiesController = require("../interfaces/http/controllers/communities.controller");
 const makeRequireAuth = require("../interfaces/http/middleware/requireAuth");
 const makeRoutes = require("../interfaces/http/routes");
 
@@ -117,6 +127,19 @@ function buildRoutes() {
     cancelFriendRequest: makeCancelFriendRequest({ friendshipRepository }),
   });
 
+  const communityRepository = mongoCommunityRepository;
+  const membershipRepository = mongoMembershipRepository;
+
+  const communitiesController = makeCommunitiesController({
+    discoverCommunities: makeDiscoverCommunities({ communityRepository, membershipRepository }),
+    listMyCommunities: makeListMyCommunities({ communityRepository, membershipRepository }),
+    suggestCommunities: makeSuggestCommunities({ communityRepository, membershipRepository, onboardingRepository }),
+    createCommunity: makeCreateCommunity({ communityRepository, membershipRepository }),
+    joinCommunity: makeJoinCommunity({ communityRepository, membershipRepository }),
+    leaveCommunity: makeLeaveCommunity({ communityRepository, membershipRepository }),
+    removeMember: makeRemoveMember({ communityRepository, membershipRepository }),
+  });
+
   const requireAuth = makeRequireAuth({ tokenService, userRepository });
 
   return makeRoutes({
@@ -127,6 +150,7 @@ function buildRoutes() {
     diagnosticAttemptController: buildAttemptController("diagnostic"),
     userController,
     peersController,
+    communitiesController,
     requireAuth,
   });
 }
