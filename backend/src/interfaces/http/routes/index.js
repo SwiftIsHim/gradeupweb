@@ -5,6 +5,7 @@ const makeOnboardingRoutes = require("./onboarding.routes");
 const makeProgressRoutes = require("./progress.routes");
 const makeAttemptRoutes = require("./attempt.routes");
 const makeUserRoutes = require("./user.routes");
+const makePeersRoutes = require("./peers.routes");
 
 /**
  * @param {{
@@ -14,6 +15,7 @@ const makeUserRoutes = require("./user.routes");
  *   testAttemptController: object,
  *   diagnosticAttemptController: object,
  *   userController: object,
+ *   peersController: object,
  *   requireAuth: import("express").RequestHandler,
  * }} controllers
  */
@@ -24,6 +26,7 @@ function makeRoutes({
   testAttemptController,
   diagnosticAttemptController,
   userController,
+  peersController,
   requireAuth,
 }) {
   const router = Router();
@@ -38,6 +41,7 @@ function makeRoutes({
   router.use("/test-attempts", makeAttemptRoutes(testAttemptController, requireAuth));
   router.use("/diagnostic-attempts", makeAttemptRoutes(diagnosticAttemptController, requireAuth));
   router.use("/users", makeUserRoutes(userController, requireAuth));
+  router.use("/peers", makePeersRoutes(peersController, requireAuth));
 
   return router;
 }
