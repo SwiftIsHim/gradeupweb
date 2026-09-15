@@ -137,21 +137,13 @@ function renderStep(vm: VM): RenderedStep {
         content: (
           <div className="space-y-5">
             <TextField
-              id="onb-first-name"
+              id="onb-username"
               label={nameContent.firstNameLabel}
               placeholder={nameContent.firstNamePlaceholder}
-              value={vm.data.firstName}
-              onChange={(v) => vm.update("firstName", v)}
-              autoComplete="given-name"
+              value={vm.data.username}
+              onChange={(v) => vm.update("username", v)}
+              autoComplete="username"
               autoFocus
-            />
-            <TextField
-              id="onb-last-name"
-              label={nameContent.lastNameLabel}
-              placeholder={nameContent.lastNamePlaceholder}
-              value={vm.data.lastName}
-              onChange={(v) => vm.update("lastName", v)}
-              autoComplete="family-name"
               helper={nameContent.helper}
             />
           </div>
@@ -416,7 +408,7 @@ function Completion({ vm }: { vm: VM }) {
         </div>
 
         <h1 className="mt-8 text-3xl font-bold tracking-tight">
-          You&apos;re all set, {vm.data.firstName}!
+          You&apos;re all set, {vm.data.username}!
         </h1>
         <p className="mt-3 max-w-lg text-sm text-muted-foreground">
           Your {vm.daysToExam ?? "personalized"}-day study plan is ready.

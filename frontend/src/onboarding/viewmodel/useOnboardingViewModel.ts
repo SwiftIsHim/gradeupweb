@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { useRouter } from "next/navigation"
-import { useCallback, useMemo, useState } from "react"
+import { useRouter } from "next/navigation";
+import { useCallback, useMemo, useState } from "react";
 
 import {
   STEP_ORDER,
@@ -13,51 +13,60 @@ import {
   MONTHS,
   type OnboardingData,
   type StepId,
-} from "@/src/onboarding/model/onboarding"
+} from "@/src/onboarding/model/onboarding";
 
 // Where "Get started" sends the user after onboarding.
-const FINISH_REDIRECT = "/dashboard"
+const FINISH_REDIRECT = "/dashboard";
 
-const DAY_MS = 1000 * 60 * 60 * 24
+const DAY_MS = 1000 * 60 * 60 * 24;
 
 function startOfToday(): Date {
-  const now = new Date()
-  return new Date(now.getFullYear(), now.getMonth(), now.getDate())
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), now.getDate());
 }
 
 /** Resolve the chosen exam date to a concrete Date (or null if incomplete). */
 function resolveExamDate(data: OnboardingData): Date | null {
-  if (data.examDateMode === "4w") return new Date(startOfToday().getTime() + 28 * DAY_MS)
-  if (data.examDateMode === "8w") return new Date(startOfToday().getTime() + 56 * DAY_MS)
+  if (data.examDateMode === "4w")
+    return new Date(startOfToday().getTime() + 28 * DAY_MS);
+  if (data.examDateMode === "8w")
+    return new Date(startOfToday().getTime() + 56 * DAY_MS);
   if (data.examDateMode === "custom") {
-    if (!data.examDay || !data.examMonth || !data.examYear) return null
-    const d = new Date(Number(data.examYear), Number(data.examMonth), Number(data.examDay))
-    return Number.isNaN(d.getTime()) ? null : d
+    if (!data.examDay || !data.examMonth || !data.examYear) return null;
+    const d = new Date(
+      Number(data.examYear),
+      Number(data.examMonth),
+      Number(data.examDay),
+    );
+    return Number.isNaN(d.getTime()) ? null : d;
   }
-  return null
+  return null;
 }
 
 function formatDate(date: Date): string {
-  return `${date.getDate()} ${MONTHS[date.getMonth()].slice(0, 3)} ${date.getFullYear()}`
+  return `${date.getDate()} ${MONTHS[date.getMonth()].slice(0, 3)} ${date.getFullYear()}`;
 }
 
 function daysFromToday(date: Date): number {
-  return Math.round((date.getTime() - startOfToday().getTime()) / DAY_MS)
+  return Math.round((date.getTime() - startOfToday().getTime()) / DAY_MS);
 }
 
 export function useOnboardingViewModel() {
-  const router = useRouter()
-  const [stepIndex, setStepIndex] = useState(0)
-  const [data, setData] = useState<OnboardingData>(initialData)
-  const [done, setDone] = useState(false)
-  const [isSaving, setIsSaving] = useState(false)
-  const [saveError, setSaveError] = useState<string | null>(null)
+  const router = useRouter();
+  const [stepIndex, setStepIndex] = useState(0);
+  const [data, setData] = useState<OnboardingData>(initialData);
+  const [done, setDone] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveError, setSaveError] = useState<string | null>(null);
 
-  const stepId: StepId = STEP_ORDER[stepIndex]
+  const stepId: StepId = STEP_ORDER[stepIndex];
 
-  const update = useCallback(<K extends keyof OnboardingData>(key: K, value: OnboardingData[K]) => {
-    setData((prev) => ({ ...prev, [key]: value }))
-  }, [])
+  const update = useCallback(
+    <K extends keyof OnboardingData>(key: K, value: OnboardingData[K]) => {
+      setData((prev) => ({ ...prev, [key]: value }));
+    },
+    [],
+  );
 
   const toggleSubject = useCallback((value: string) => {
     setData((prev) => ({
@@ -65,51 +74,51 @@ export function useOnboardingViewModel() {
       subjects: prev.subjects.includes(value)
         ? prev.subjects.filter((s) => s !== value)
         : [...prev.subjects, value],
-    }))
-  }, [])
+    }));
+  }, []);
 
   // Derived exam-date info (used by the exam step preview + completion summary).
-  const examDate = useMemo(() => resolveExamDate(data), [data])
-  const daysToExam = examDate ? daysFromToday(examDate) : null
+  const examDate = useMemo(() => resolveExamDate(data), [data]);
+  const daysToExam = examDate ? daysFromToday(examDate) : null;
 
   // Per-step "can continue" gate.
   const canContinue = useMemo(() => {
     switch (stepId) {
       case "welcome":
-        return true
+        return true;
       case "goal":
-        return Boolean(data.goal)
+        return Boolean(data.goal);
       case "name":
-        return data.firstName.trim().length > 0
+        return data.username.trim().length > 0;
       case "grade":
-        return Boolean(data.gradeLevel)
+        return Boolean(data.gradeLevel);
       case "subjects":
-        return data.subjects.length > 0
+        return data.subjects.length > 0;
       case "examDate":
-        return examDate !== null && daysToExam !== null && daysToExam > 0
+        return examDate !== null && daysToExam !== null && daysToExam > 0;
       case "dailyGoal":
-        return Boolean(data.dailyMinutes) && Boolean(data.schedule)
+        return Boolean(data.dailyMinutes) && Boolean(data.schedule);
       case "notifications":
-        return data.notifications !== ""
+        return data.notifications !== "";
       default:
-        return false
+        return false;
     }
-  }, [stepId, data, examDate, daysToExam])
+  }, [stepId, data, examDate, daysToExam]);
 
-  const isLastStep = stepIndex === TOTAL_STEPS - 1
+  const isLastStep = stepIndex === TOTAL_STEPS - 1;
 
   // Persist answers to the backend, then reveal the completion screen.
   const finish = useCallback(async () => {
-    if (isSaving) return
-    setSaveError(null)
-    setIsSaving(true)
+    if (isSaving) return;
+    setSaveError(null);
+    setIsSaving(true);
     try {
       const res = await fetch("/api/onboarding", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          firstName: data.firstName.trim(),
-          lastName: data.lastName.trim() || undefined,
+          firstName: data.username.trim(),
+          lastName: undefined,
           goal: data.goal,
           gradeLevel: data.gradeLevel,
           subjects: data.subjects,
@@ -119,68 +128,75 @@ export function useOnboardingViewModel() {
           schedule: data.schedule,
           notifications: data.notifications,
         }),
-      })
-      const payload = (await res.json().catch(() => ({}))) as { error?: string }
+      });
+      const payload = (await res.json().catch(() => ({}))) as {
+        error?: string;
+      };
       if (!res.ok) {
-        throw new Error(payload.error ?? "Couldn't save your setup. Try again.")
+        throw new Error(
+          payload.error ?? "Couldn't save your setup. Try again.",
+        );
       }
-      setDone(true)
+      setDone(true);
     } catch (error) {
       setSaveError(
         error instanceof Error
           ? error.message
           : "Network error. Check your connection and try again.",
-      )
+      );
     } finally {
-      setIsSaving(false)
+      setIsSaving(false);
     }
-  }, [isSaving, data, examDate])
+  }, [isSaving, data, examDate]);
 
   const next = useCallback(() => {
-    if (!canContinue || isSaving) return
+    if (!canContinue || isSaving) return;
     if (isLastStep) {
-      void finish()
-      return
+      void finish();
+      return;
     }
-    setStepIndex((i) => Math.min(i + 1, TOTAL_STEPS - 1))
-  }, [canContinue, isSaving, isLastStep, finish])
+    setStepIndex((i) => Math.min(i + 1, TOTAL_STEPS - 1));
+  }, [canContinue, isSaving, isLastStep, finish]);
 
   const back = useCallback(() => {
-    setStepIndex((i) => Math.max(i - 1, 0))
-  }, [])
+    setStepIndex((i) => Math.max(i - 1, 0));
+  }, []);
 
   const adjustSetup = useCallback(() => {
-    setDone(false)
-    setStepIndex(0)
-  }, [])
+    setDone(false);
+    setStepIndex(0);
+  }, []);
 
   const getStarted = useCallback(() => {
-    router.push(FINISH_REDIRECT)
-    router.refresh()
-  }, [router])
+    router.push(FINISH_REDIRECT);
+    router.refresh();
+  }, [router]);
 
   // Completion summary (human-readable values).
   const summary = useMemo(() => {
     const gradeLabel =
-      gradeContent.options.find((o) => o.value === data.gradeLevel)?.title ?? "—"
-    const schedule = SCHEDULE_LABELS[data.schedule]
+      gradeContent.options.find((o) => o.value === data.gradeLevel)?.title ??
+      "—";
+    const schedule = SCHEDULE_LABELS[data.schedule];
     const minutesLabel =
-      dailyGoalContent.minutesOptions.find((o) => o.value === data.dailyMinutes)?.title ??
-      `${data.dailyMinutes} min`
+      dailyGoalContent.minutesOptions.find((o) => o.value === data.dailyMinutes)
+        ?.title ?? `${data.dailyMinutes} min`;
 
     return {
-      name: `${data.firstName} ${data.lastName}`.trim() || data.firstName,
+      name: data.username.trim() || "Guest",
       grade: gradeLabel,
       examDate:
         examDate && daysToExam !== null
           ? `${formatDate(examDate)} · in ${daysToExam} days`
           : "—",
-      dailyGoal: schedule ? `${minutesLabel} · ${schedule.label}` : minutesLabel,
+      dailyGoal: schedule
+        ? `${minutesLabel} · ${schedule.label}`
+        : minutesLabel,
       notifications: data.notifications === "on" ? "Enabled" : "Disabled",
-    }
-  }, [data, examDate, daysToExam])
+    };
+  }, [data, examDate, daysToExam]);
 
-  const startTime = SCHEDULE_LABELS[data.schedule]?.time ?? "your study time"
+  const startTime = SCHEDULE_LABELS[data.schedule]?.time ?? "your study time";
   const firstSubjectTitle = useMemo(() => {
     return (
       [
@@ -203,8 +219,8 @@ export function useOnboardingViewModel() {
               "office-comms": "Office Communication",
             })[v],
         )[0] ?? "your first topic"
-    )
-  }, [data.subjects])
+    );
+  }, [data.subjects]);
 
   return {
     // navigation
@@ -232,5 +248,5 @@ export function useOnboardingViewModel() {
     summary,
     startTime,
     firstSubjectTitle,
-  }
+  };
 }

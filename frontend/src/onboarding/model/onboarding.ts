@@ -14,7 +14,7 @@ export type StepId =
   | "subjects"
   | "examDate"
   | "dailyGoal"
-  | "notifications"
+  | "notifications";
 
 export const STEP_ORDER: StepId[] = [
   "welcome",
@@ -25,36 +25,34 @@ export const STEP_ORDER: StepId[] = [
   "examDate",
   "dailyGoal",
   "notifications",
-]
+];
 
-export const TOTAL_STEPS = STEP_ORDER.length
+export const TOTAL_STEPS = STEP_ORDER.length;
 
 export interface Choice {
-  value: string
-  title: string
-  description?: string
+  value: string;
+  title: string;
+  description?: string;
 }
 
-export type ExamDateMode = "4w" | "8w" | "custom"
+export type ExamDateMode = "4w" | "8w" | "custom";
 
 export interface OnboardingData {
-  firstName: string
-  lastName: string
-  goal: string
-  gradeLevel: string
-  subjects: string[]
-  examDateMode: ExamDateMode | ""
-  examDay: string
-  examMonth: string // "0".."11"
-  examYear: string
-  dailyMinutes: string // "15" | "30" | "45" | "60"
-  schedule: string
-  notifications: "on" | "off" | ""
+  username: string;
+  goal: string;
+  gradeLevel: string;
+  subjects: string[];
+  examDateMode: ExamDateMode | "";
+  examDay: string;
+  examMonth: string; // "0".."11"
+  examYear: string;
+  dailyMinutes: string; // "15" | "30" | "45" | "60"
+  schedule: string;
+  notifications: "on" | "off" | "";
 }
 
 export const initialData: OnboardingData = {
-  firstName: "",
-  lastName: "",
+  username: "",
   goal: "",
   gradeLevel: "",
   subjects: [],
@@ -65,10 +63,10 @@ export const initialData: OnboardingData = {
   dailyMinutes: "",
   schedule: "",
   notifications: "",
-}
+};
 
-export const brandName = "Grade Up"
-export const brandInitial = "G"
+export const brandName = "Grade Up";
+export const brandInitial = "G";
 
 // ── Step 1 — Welcome ────────────────────────────────────────────────────────
 export const welcomeContent = {
@@ -81,7 +79,7 @@ export const welcomeContent = {
     "Reminders so you never lose your streak",
   ],
   cta: "Let's go",
-}
+};
 
 // ── Step 2 — Goal ───────────────────────────────────────────────────────────
 export const goalContent = {
@@ -109,23 +107,22 @@ export const goalContent = {
       description: "Sharpen up — no specific exam yet",
     },
   ] satisfies Choice[],
-}
+};
 
-// ── Step 3 — Name ───────────────────────────────────────────────────────────
+// ── Step 3 — Username ──────────────────────────────────────────────────────
 export const nameContent = {
-  title: "What should we call you?",
-  subtitle: "This will appear on your profile and certificates.",
-  firstNameLabel: "First name",
-  firstNamePlaceholder: "Samuel",
-  lastNameLabel: "Last name",
-  lastNamePlaceholder: "Adekunle",
-  helper: "Used for certificates and group display.",
-}
+  title: "Choose your username",
+  subtitle: "This is your public handle on the platform.",
+  firstNameLabel: "Username",
+  firstNamePlaceholder: "gradeup_ace",
+  helper: "Use only letters, numbers, underscores, and periods.",
+};
 
 // ── Step 4 — Grade level ────────────────────────────────────────────────────
 export const gradeContent = {
   title: "What's your current grade level?",
-  subtitle: "We'll tailor your study plan and exam recommendations to your level.",
+  subtitle:
+    "We'll tailor your study plan and exam recommendations to your level.",
   options: [
     {
       value: "6",
@@ -153,7 +150,7 @@ export const gradeContent = {
       description: "Director and above · executive cadre",
     },
   ] satisfies Choice[],
-}
+};
 
 // ── Step 5 — Subjects ───────────────────────────────────────────────────────
 export const subjectsContent = {
@@ -167,7 +164,7 @@ export const subjectsContent = {
     { value: "current-affairs", title: "Current Affairs" },
     { value: "office-comms", title: "Office Communication" },
   ] satisfies Choice[],
-}
+};
 
 // ── Step 6 — Exam date ──────────────────────────────────────────────────────
 export const examDateContent = {
@@ -178,12 +175,16 @@ export const examDateContent = {
   quickOptions: [
     { value: "4w" as const, title: "In 4 weeks" },
     { value: "8w" as const, title: "In 8 weeks" },
-    { value: "custom" as const, title: "I have a date", subtitle: "Pick below" },
+    {
+      value: "custom" as const,
+      title: "I have a date",
+      subtitle: "Pick below",
+    },
   ],
   dayLabel: "Day",
   monthLabel: "Month",
   yearLabel: "Year",
-}
+};
 
 export const MONTHS = [
   "January",
@@ -198,7 +199,7 @@ export const MONTHS = [
   "October",
   "November",
   "December",
-]
+];
 
 // ── Step 7 — Daily goal ─────────────────────────────────────────────────────
 export const dailyGoalContent = {
@@ -218,15 +219,16 @@ export const dailyGoalContent = {
     { value: "weekends", title: "Weekends" },
     { value: "flexible", title: "Flexible" },
   ] satisfies Choice[],
-}
+};
 
 // schedule value → human label + a suggested start time for the completion copy
-export const SCHEDULE_LABELS: Record<string, { label: string; time: string }> = {
-  "weekday-mornings": { label: "weekday mornings", time: "7:00 AM" },
-  "weekday-evenings": { label: "weekday evenings", time: "5:00 PM" },
-  weekends: { label: "weekends", time: "10:00 AM" },
-  flexible: { label: "flexible hours", time: "anytime" },
-}
+export const SCHEDULE_LABELS: Record<string, { label: string; time: string }> =
+  {
+    "weekday-mornings": { label: "weekday mornings", time: "7:00 AM" },
+    "weekday-evenings": { label: "weekday evenings", time: "5:00 PM" },
+    weekends: { label: "weekends", time: "10:00 AM" },
+    flexible: { label: "flexible hours", time: "anytime" },
+  };
 
 // ── Step 8 — Notifications ──────────────────────────────────────────────────
 export const notificationsContent = {
@@ -244,7 +246,7 @@ export const notificationsContent = {
       description: "You can turn these on anytime in settings",
     },
   ] satisfies Choice[],
-}
+};
 
 // ── Completion ──────────────────────────────────────────────────────────────
 export const completionContent = {
@@ -257,4 +259,4 @@ export const completionContent = {
     dailyGoal: "Daily goal",
     notifications: "Notifications",
   },
-}
+};
