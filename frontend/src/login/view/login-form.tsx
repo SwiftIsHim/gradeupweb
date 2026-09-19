@@ -48,26 +48,15 @@ export function LoginForm() {
 
           {/* Signup-only fields for a brand-new account. */}
           {onSignupStep ? (
-            <>
-              <TextField
-                id="signup-name"
-                type="text"
-                autoComplete="name"
-                label={vm.name.label}
-                placeholder={vm.name.placeholder}
-                value={vm.nameValue}
-                onChange={vm.setNameValue}
-                autoFocus
-              />
-              <PhoneField
-                label={vm.phone.label}
-                flag={vm.phone.countryFlag}
-                code={vm.phone.countryCode}
-                placeholder={vm.phone.placeholder}
-                value={vm.phoneValue}
-                onChange={vm.setPhoneValue}
-              />
-            </>
+            <PhoneField
+              label={vm.phone.label}
+              flag={vm.phone.countryFlag}
+              code={vm.phone.countryCode}
+              placeholder={vm.phone.placeholder}
+              value={vm.phoneValue}
+              onChange={vm.setPhoneValue}
+              autoFocus
+            />
           ) : null}
 
           {/* Password — shown on both the login and signup steps. */}
@@ -191,6 +180,7 @@ interface PhoneFieldProps {
   placeholder: string
   value: string
   onChange: (next: string) => void
+  autoFocus?: boolean
 }
 
 function PhoneField({
@@ -200,6 +190,7 @@ function PhoneField({
   placeholder,
   value,
   onChange,
+  autoFocus,
 }: PhoneFieldProps) {
   return (
     <div>
@@ -218,6 +209,7 @@ function PhoneField({
           type="tel"
           inputMode="tel"
           autoComplete="tel-national"
+          autoFocus={autoFocus}
           placeholder={placeholder}
           value={value}
           onChange={(event) => onChange(event.target.value)}
