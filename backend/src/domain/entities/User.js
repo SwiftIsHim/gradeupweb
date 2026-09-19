@@ -4,6 +4,8 @@ const { assertValidEmail } = require("../valueObjects/Email");
 
 // E.164: a leading "+" then 7-15 digits, first digit non-zero.
 const E164_RE = /^\+[1-9]\d{6,14}$/;
+// Lowercase letters/digits/dot/underscore, 3-20 chars.
+const USERNAME_RE = /^[a-z0-9_.]{3,20}$/;
 
 class User {
   constructor({
@@ -12,6 +14,7 @@ class User {
     phone,
     name,
     organization,
+    username,
     loginHint,
     passwordHash,
     passwordResetTokenHash,
@@ -22,6 +25,7 @@ class User {
     this.phone = phone;
     this.name = name;
     this.organization = organization;
+    this.username = username ?? null;
     this.loginHint = loginHint || "Use password";
     // Only populated when the repository was asked to include it (login flow).
     this.passwordHash = passwordHash;
@@ -53,6 +57,28 @@ class User {
     });
   }
 
+  /** Slugify arbitrary input (a name, or an email local-part) into a username candidate base. */
+  static slugifyUsername(input) {
+    const base = String(input || "")
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9_.]+/g, "")
+      .slice(0, 20);
+    return base.length >= 3 ? base : `user${base}`.slice(0, 20);
+  }
+
+  /** Validate + assign a username on this (already-constructed) entity. */
+  assignUsername(candidate) {
+    const username = String(candidate || "").trim().toLowerCase();
+    if (!USERNAME_RE.test(username)) {
+      throw new ValidationError("Username must be 3-20 characters: lowercase letters, numbers, '.' or '_'.", {
+        field: "username",
+      });
+    }
+    this.username = username;
+    return username;
+  }
+
   async verifyPassword(plain, passwordHasher) {
     if (!this.passwordHash) {
       throw new ValidationError("Password hash was not loaded for this user.");
@@ -81,7 +107,12 @@ class User {
   }
 
   toPublic() {
-    return { id: this.id, email: this.email, phone: this.phone, name: this.name };
+    return { id: this.id, email: this.email, phone: this.phone, name: this.name, username: this.username };
+  }
+
+  /** Minimal, non-sensitive shape shown to other users (peers/search/requests). */
+  toPeerSummary() {
+    return { id: this.id, username: this.username, name: this.name ?? null };
   }
 }
 

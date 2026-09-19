@@ -17,6 +17,7 @@ import { Sidebar } from "@/src/dashboard/view/sidebar"
 import { LogoutButton } from "@/src/dashboard/view/logout-button"
 import { ProfileLibrary } from "@/src/dashboard/view/profile-library"
 import { ReadinessScoreValue } from "@/src/dashboard/view/readiness-score"
+import { UsernameEditor } from "@/src/dashboard/view/username-editor"
 import {
   profilePlaceholder,
   streakPlaceholder,
@@ -37,7 +38,13 @@ const ICONS = {
 
 type IconKey = keyof typeof ICONS
 
-export function Profile({ header }: { header: DashboardHeader }) {
+export function Profile({
+  header,
+  username,
+}: {
+  header: DashboardHeader
+  username: string
+}) {
   return (
     <div className="flex min-h-screen bg-background">
       <Sidebar header={header} active="profile" />
@@ -45,7 +52,7 @@ export function Profile({ header }: { header: DashboardHeader }) {
         <Topbar />
         <main className="flex-1 px-6 py-8 sm:px-8">
           <div className="mx-auto w-full max-w-3xl space-y-6">
-            <ProfileHeader header={header} />
+            <ProfileHeader header={header} username={username} />
             <StatsRow />
             <CountersRow />
             <LearningHistory />
@@ -87,13 +94,20 @@ function Topbar() {
   )
 }
 
-function ProfileHeader({ header }: { header: DashboardHeader }) {
+function ProfileHeader({
+  header,
+  username,
+}: {
+  header: DashboardHeader
+  username: string
+}) {
   return (
     <div className="flex flex-col items-center text-center">
       <span className="flex size-24 items-center justify-center rounded-full bg-amber-200 text-2xl font-bold text-amber-800">
         {header.initials}
       </span>
       <h1 className="mt-4 text-2xl font-bold tracking-tight">{header.fullName}</h1>
+      <UsernameEditor username={username} />
       <p className="mt-1 text-xs text-muted-foreground">
         Joined {header.joinedYear}
       </p>

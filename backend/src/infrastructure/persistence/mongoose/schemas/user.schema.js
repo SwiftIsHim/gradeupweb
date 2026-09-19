@@ -13,6 +13,14 @@ const userSchema = new mongoose.Schema(
     phone: { type: String, required: true, trim: true },
     name: { type: String, trim: true },
     organization: { type: String, trim: true },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+      index: true,
+    },
     // Stored as a bcrypt hash, never in plain text. Excluded from queries by default.
     passwordHash: { type: String, required: true, select: false },
     loginHint: { type: String, default: "Use password" },
