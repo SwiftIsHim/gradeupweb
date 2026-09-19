@@ -57,6 +57,24 @@ const mongoUserRepository = {
     return toEntity(doc);
   },
 
+  async findByIds(ids) {
+    const docs = await UserModel.find({ _id: { $in: ids } }).lean();
+    return docs.map((doc) => toEntity(doc));
+  },
+
+  async searchByUsernameOrName(query, { excludeId, limit = 20 } = {}) {
+    const escaped = String(query).trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    if (!escaped) return [];
+    const regex = new RegExp(escaped, "i");
+    const docs = await UserModel.find({
+      _id: { $ne: excludeId },
+      $or: [{ username: regex }, { name: regex }],
+    })
+      .limit(limit)
+      .lean();
+    return docs.map((doc) => toEntity(doc));
+  },
+
   async findByResetTokenHash(tokenHash) {
     // Both reset-token fields are select:false on the schema, so request them explicitly.
     const doc = await UserModel.findOne({ passwordResetTokenHash: tokenHash })

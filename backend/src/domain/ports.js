@@ -12,6 +12,17 @@
  * @property {(userId: string, passwordHash: string) => Promise<import("./entities/User")>} updatePassword
  * @property {(username: string) => Promise<import("./entities/User")|null>} findByUsername
  * @property {(userId: string, username: string) => Promise<import("./entities/User")>} updateUsername
+ * @property {(ids: string[]) => Promise<import("./entities/User")[]>} findByIds
+ * @property {(query: string, opts: {excludeId: string, limit?: number}) => Promise<import("./entities/User")[]>} searchByUsernameOrName
+ *
+ * @typedef {Object} FriendshipRepository
+ * @property {(friendship: import("./entities/Friendship")) => Promise<import("./entities/Friendship")>} create
+ * @property {(id: string) => Promise<import("./entities/Friendship")|null>} findById
+ * @property {(userIdA: string, userIdB: string) => Promise<import("./entities/Friendship")|null>} findBetween
+ * @property {(userId: string) => Promise<import("./entities/Friendship")[]>} listAllInvolving
+ * @property {(userIds: string[]) => Promise<import("./entities/Friendship")[]>} listAcceptedAmong
+ * @property {(id: string) => Promise<import("./entities/Friendship")>} accept
+ * @property {(id: string) => Promise<void>} deleteById
  *
  * @typedef {Object} OnboardingRepository
  * @property {(userId: string) => Promise<import("./entities/OnboardingProfile")|null>} findByUserId

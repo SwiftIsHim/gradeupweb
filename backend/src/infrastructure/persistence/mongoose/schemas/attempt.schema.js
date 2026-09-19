@@ -41,7 +41,7 @@ function makeAttemptModel(modelName, slugField) {
 
   schema.index({ user: 1, [slugField]: 1, createdAt: -1 });
 
-  return mongoose.model(modelName, schema);
+  return mongoose.models[modelName] || mongoose.model(modelName, schema);
 }
 
 module.exports = { makeAttemptModel };
