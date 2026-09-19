@@ -7,6 +7,8 @@ const makeAttemptRoutes = require("./attempt.routes");
 const makeUserRoutes = require("./user.routes");
 const makePeersRoutes = require("./peers.routes");
 const makeCommunitiesRoutes = require("./communities.routes");
+const makeFeedRoutes = require("./feed.routes");
+const makePostsRoutes = require("./posts.routes");
 
 /**
  * @param {{
@@ -18,6 +20,8 @@ const makeCommunitiesRoutes = require("./communities.routes");
  *   userController: object,
  *   peersController: object,
  *   communitiesController: object,
+ *   feedController: object,
+ *   postsController: object,
  *   requireAuth: import("express").RequestHandler,
  * }} controllers
  */
@@ -30,6 +34,8 @@ function makeRoutes({
   userController,
   peersController,
   communitiesController,
+  feedController,
+  postsController,
   requireAuth,
 }) {
   const router = Router();
@@ -46,6 +52,8 @@ function makeRoutes({
   router.use("/users", makeUserRoutes(userController, requireAuth));
   router.use("/peers", makePeersRoutes(peersController, requireAuth));
   router.use("/communities", makeCommunitiesRoutes(communitiesController, requireAuth));
+  router.use("/feed", makeFeedRoutes(feedController, requireAuth));
+  router.use("/posts", makePostsRoutes(postsController, requireAuth));
 
   return router;
 }
