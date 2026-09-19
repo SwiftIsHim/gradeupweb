@@ -31,7 +31,6 @@ export function useLoginFormViewModel() {
   const [emailValue, setEmailValue] = useState("")
   const [passwordValue, setPasswordValue] = useState("")
   const [confirmPasswordValue, setConfirmPasswordValue] = useState("")
-  const [nameValue, setNameValue] = useState("")
   const [phoneValue, setPhoneValue] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
@@ -41,7 +40,6 @@ export function useLoginFormViewModel() {
     setStep("email")
     setPasswordValue("")
     setConfirmPasswordValue("")
-    setNameValue("")
     setPhoneValue("")
     setErrorMessage(null)
   }, [])
@@ -93,7 +91,6 @@ export function useLoginFormViewModel() {
           const data = await postJson("/api/auth/signup", {
             email: emailValue.trim(),
             phone: toE164(phoneValue),
-            name: nameValue.trim() || undefined,
             password: passwordValue,
           })
           if (data.user) Sentry.setUser(data.user)
@@ -116,7 +113,6 @@ export function useLoginFormViewModel() {
       emailValue,
       passwordValue,
       confirmPasswordValue,
-      nameValue,
       phoneValue,
       isSubmitting,
       router,
@@ -146,8 +142,6 @@ export function useLoginFormViewModel() {
     setPasswordValue,
     confirmPasswordValue,
     setConfirmPasswordValue,
-    nameValue,
-    setNameValue,
     phoneValue,
     setPhoneValue,
     isSubmitting,
